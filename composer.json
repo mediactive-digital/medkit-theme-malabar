@@ -1,6 +1,6 @@
 {
-    "name": "mediactive-digital/medkit-theme-light",
-    "description": "Theme boilerplate for mediactive-digital/medkit",
+    "name": "mediactive-digital/medkit-theme-malabar",
+    "description": "Theme malabar boilerplate for mediactive-digital/medkit",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +9,7 @@
             "homepage": "https://www.mediactive-digital.com/"
         }
     ],
-    "homepage": "https://github.com/mediactive-digital/medkit-theme-light",
+    "homepage": "https://github.com/mediactive-digital/medkit-theme-malabar",
     "keywords": ["Laravel", "MedKit", "boilerplate"],
     "require": {
         "illuminate/support": "~5",
