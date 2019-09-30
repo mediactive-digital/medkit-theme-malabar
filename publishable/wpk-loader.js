@@ -42,7 +42,7 @@ const default_folders = {
      recursive : true, // tell how the file finder work
      logger: true, // just logger in v3
      purgeCssOptions : {
-         enabled: true // purge css options availables here https://github.com/spatie/laravel-mix-purgecss
+         enabled: false // purge css options availables here https://github.com/spatie/laravel-mix-purgecss
      },
      webp: false, // tell if you wants images webp generation for your projet
      webpOptions: { // options of this plugins to generate webp formats https://github.com/imagemin/imagemin-webp
