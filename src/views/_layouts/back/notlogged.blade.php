@@ -38,7 +38,7 @@
 </head>
 
 <body>
-    <main role="main" class="">
+    <main role="main" class="h-100">
         @yield('content')
     </main>
 

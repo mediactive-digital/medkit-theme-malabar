@@ -1,7 +1,7 @@
 @extends('medKitTheme::_layouts.back.notlogged')
 @section('content')
-<section>
-    <div class="row">
+<section class="h-100">
+    <div class="row h-100">
         <div id="bg_joli_a_mettre" class="bg-primary col-lg-6 h-100 text-light p-0">
             <div class="d-flex flex-column">
                 <div class="align-self-center">
