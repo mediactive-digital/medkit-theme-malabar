@@ -12,6 +12,7 @@ const default_mix_options = {
     browsers: ['last 5 versions'],
     flexbox: "no-2009"
   })],
+  processCssUrls: false,
   terser: {
     parallel: 8, // Use multithreading for the processing
     terserOptions: {
@@ -52,8 +53,9 @@ const default_folders = {
 
   class WpkLoader {
       constructor(opts) {
-        typeof opts === 'object' && opts.folders ? this.folders = Object.assign(default_folders, opts.folders) : this.folders = default_folders
-        typeof opts === 'object' && opts.options ? this.options = Object.assign(default_opts, opts.options) : this.options = default_opts
+        typeof opts === 'object' && opts.folders ? this.folders = Object.assign(default_folders, opts.folders) : this.folders = default_folders;
+        typeof opts === 'object' && opts.options ? this.options = Object.assign(default_opts, opts.options) : this.options = default_opts;
+        typeof opts === 'object' && opts.mix ? this.mixOptions = Object.assign(default_mix_options, opts.mix) : this.mixOptions = default_mix_options;
         this.paths = {
             jsPath: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.js),
             sassPath: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.sass),
@@ -203,6 +205,9 @@ const default_folders = {
       mixWorker(links) {
 
         this.options.mixOverride(mix);
+        // console.log('this.paths.destPath', this.paths.destPath)
+        // mix.setPublicPath('./');
+        mix.options(this.mixOptions)
 
         if (!mix.inProduction()) {
 
