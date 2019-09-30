@@ -1,23 +1,27 @@
 @extends('medKitTheme::_layouts.back.notlogged')
 @section('content')
-
-<div class="col-md-10 col-lg-8 col-xl-6 mx-auto">
-    <div class="card">
+<div id="bg_joli_a_mettre" class="bg-primary col-lg-6 h-100 text-light p-0">
+    <div class="d-flex flex-column">
+        <div class="align-self-center">
+            <p class="h1 mb-5">Joli titre </p>
+			<h1 class="bg-primary d-inline p-2 ">de mon joli back a mettre</h1>
+			<p class="mt-5 h2">avec une jolie  date<br> par exemple c'est pas mal non ?</p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6 h-100">
+    <div class="card w-50 mx-auto">
+        
+        <img src="" class="img-fluid" alt="Logo pour thème malabar">
         <div class="card-header">{{ _i('Connexion') }}</div>
-
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 mx-auto">
-                    {!! form($form) !!}
-                </div>
-            </div>
+            {!! form($form) !!}
         </div>
         <div class="card-footer bg-transparent border-transparent text-right">
             <a href="{{ route('back.password.request') }}">{{ _i('Mot de passe oublié ?') }}</a>
         </div>
     </div>
 </div>
-
 </body>
 </html>
 
