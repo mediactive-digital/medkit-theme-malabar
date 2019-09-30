@@ -15,7 +15,7 @@
             <div class="d-flex h-100  justify-content-center">
                 <div class="card align-self-center w-50 mx-auto">
                     
-                <img src="{{ 'images/malabar.jpg' }}" class="img-fluid mb-4" alt="Logo pour thème malabar">
+                <img src="{{ asset('images/malabar.jpg') }}" class="img-fluid mb-4" alt="Logo pour thème malabar">
                     <div class="card-header bg-light">{{ _i('Connexion') }}</div>
                     <div class="card-body bg-light">
                         {!! form($form) !!}
