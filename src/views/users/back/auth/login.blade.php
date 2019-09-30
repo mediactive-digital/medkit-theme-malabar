@@ -29,8 +29,4 @@
     </div>
 </section>
 
-
-</body>
-</html>
-
 @endsection

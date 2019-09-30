@@ -50,10 +50,11 @@
 </head>
 
 <body>
+    @include('medKitTheme::_layouts.back.partials.header')
     <div class="wrapper position-relative">
         @include('medKitTheme::_layouts.back.partials.sidebar')
         <main role="main" class="main-admin">
-                @include('medKitTheme::_layouts.back.partials.header')
+                
 
                 <div id="flash-messages">
                     @include('medKitTheme::_layouts.back.partials.flash_messages')
