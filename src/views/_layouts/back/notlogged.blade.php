@@ -38,15 +38,9 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <main role="main" class="col-md-12 px-4">
-                <div class="row py-4">
-                    @yield('content')
-                </div>
-            </main>
-        </div>
-    </div>
+    <main role="main" class="">
+        @yield('content')
+    </main>
 
     <!-- Translations -->
     {!! Translation::get() !!}
