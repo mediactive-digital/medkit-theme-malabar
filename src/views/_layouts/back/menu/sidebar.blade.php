@@ -30,11 +30,17 @@
 
                 @endphp
 
-                <a@lm-attrs($item->link) href="#" @lm-endattrs href="{!! $item->url() !!}">{!! $icon !!}{!! $title !!}{!! $dropdown !!}</a>
+                <a@lm-attrs($item->link)  @lm-endattrs href="{!! $item->url() !!}">{!! $icon !!}{!! $title !!}{!! $dropdown !!}</a>
 
             @else
 
-                <a href="#"><span class="title">{!! $item->title !!}</span></a>
+                @php 
+                    $icon = $hasIcon = '';
+                    $icon = $item->data('icon');
+                    $icon = $icon ? '<i class="material-icons" aria-hidden="true">' . $icon . '</i>' : '';
+                @endphp
+
+                <a href="#"><span class="title">{!! $icon !!}{!! $item->title !!}</span></a>
 
             @endif
 
