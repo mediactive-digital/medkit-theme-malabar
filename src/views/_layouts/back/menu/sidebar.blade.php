@@ -22,6 +22,7 @@
                         $icon = $icon ? '<i class="material-icons" aria-hidden="true">' . $icon . '</i>' : '';
                         $hasIcon = $icon ? ' has-icon' : '';
                     }
+                    // $dropdownJsAttributes = $hasChildren ? '' : '';
 
                     $dropdown = $hasChildren ? '<i class="material-icons" aria-hidden="true">keyboard_arrow_down</i>' : '';
                     $hasDropdown = $dropdown ? ' has-dropdown' : '';
