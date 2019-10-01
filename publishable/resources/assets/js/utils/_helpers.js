@@ -82,6 +82,7 @@ function checkSidebar(orientation) {
 }
 
 module.exports = {
+    checkSidebar,
     enableElements,
     disableElements,
     defineLangDatable,
