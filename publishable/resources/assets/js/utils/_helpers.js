@@ -57,7 +57,7 @@ function enableElements(elements, loader) {
 function getSettingsFromLocalStorage(item) {
    var the_item = localStorage.getItem(item);
    if(the_item === null) {
-       throw new Error('l\'Item spécifié n\'existe pas');
+       console.log('item specified  '+ item +' has no key')
    }
    else {
        return the_item;

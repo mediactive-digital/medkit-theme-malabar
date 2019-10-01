@@ -1,4 +1,6 @@
-import { checkSidebar } from '../utils/helpers';
+import { checkSidebar } from '../../utils/_helpers';
+
+console.log('checkSidebar', checkSidebar)
 
 jQuery(document).ready(($) => {
     // Sidebar

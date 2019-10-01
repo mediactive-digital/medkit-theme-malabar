@@ -70,7 +70,7 @@ $ = jQuery = DataTable.$;
 
 
 
-require('./partials/_sidebar.js');
+require('./partials/_sidebar');
 require('../utils/_helpers');
 
 /* header */
