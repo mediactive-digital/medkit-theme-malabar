@@ -16,7 +16,7 @@
 		</div>
 	
 		  <div class="sticky-top">
-			  <div class="sidebar-header p-4">
+			<div class="sidebar-header p-4">
 			  <img class="img-fluid d-block mx-auto" src="{{ asset('images/malabar.jpg') }}">
 				<strong>
 					<img class="img-fluid d-block mx-auto" src="{{ asset('images/malabar.jpg') }}">

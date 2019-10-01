@@ -53,12 +53,15 @@
     @include('medKitTheme::_layouts.back.partials.header')
     <div class="wrapper position-relative">
         @include('medKitTheme::_layouts.back.partials.sidebar')
-        <main role="main" class="main-admin">
+        <main role="main" id="content" class="col main-admin">
                 
                 <div class="container-fluid">
-                    <div id="flash-messages">
-                        @include('medKitTheme::_layouts.back.partials.flash_messages')
+                    <div class="col-12">
+                        <div id="flash-messages">
+                            @include('medKitTheme::_layouts.back.partials.flash_messages')
+                        </div>
                     </div>
+                    
                 </div>
 
                 @yield('content')

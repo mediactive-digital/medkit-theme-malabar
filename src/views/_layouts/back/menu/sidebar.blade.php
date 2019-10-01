@@ -1,11 +1,11 @@
-<ul class="nav">
+<ul id="menu" class="list-unstyled mt-5">
     @foreach($items as $item)
 
         @php
 
             $hasChildren = $item->hasChildren();
             $link = $item->link;
-            $class = 'nav-item' . ($hasChildren ? ' has-submenu' : '') . ($hasChildren && $link && $link->isActive ? ' expend' : '');
+            $class = '' . ($hasChildren ? ' has-submenu' : '') . ($hasChildren && $link && $link->isActive ? ' active' : '');
 
         @endphp
 
@@ -30,11 +30,11 @@
 
                 @endphp
 
-                <a@lm-attrs($item->link) class="nav-link" @lm-endattrs href="{!! $item->url() !!}">{!! $icon !!}{!! $title !!}{!! $dropdown !!}</a>
+                <a@lm-attrs($item->link) href="#" @lm-endattrs href="{!! $item->url() !!}">{!! $icon !!}{!! $title !!}{!! $dropdown !!}</a>
 
             @else
 
-                <a class="nav-link"><span class="title">{!! $item->title !!}</span></a>
+                <a href="#"><span class="title">{!! $item->title !!}</span></a>
 
             @endif
 
