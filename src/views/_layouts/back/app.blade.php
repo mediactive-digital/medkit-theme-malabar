@@ -38,7 +38,7 @@
 
     @stack('post-styles')
 
-    @routes
+    {{-- @routes --}}
 
     <!-- Scripts -->
     <script>
