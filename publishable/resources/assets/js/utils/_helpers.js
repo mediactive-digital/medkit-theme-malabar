@@ -1,11 +1,14 @@
-// Datatables
-if (typeof($.fn.dataTable) !== 'undefined') {
 
-    $.extend(true, $.fn.dataTable.defaults, {
-        language: {
-            url: '/json/' + Lang.getLocale() + '/jquery.dataTables.json'
-        }
-    });
+function defineLangDatable() {
+    // Datatables
+    if (typeof($.fn.dataTable) !== 'undefined') {
+
+        $.extend(true, $.fn.dataTable.defaults, {
+            language: {
+                url: '/json/' + Lang.getLocale() + '/jquery.dataTables.json'
+            }
+        });
+    }
 }
 
 // Disable elements
@@ -51,24 +54,35 @@ function enableElements(elements, loader) {
         $(this).removeClass('disabled');
     });
 }
+function getSettingsFromLocalStorage(item) {
+   var the_item = localStorage.getItem(item);
+   if(the_item === null) {
+       throw new Error('l\'Item spécifié n\'existe pas');
+   }
+   else {
+       return the_item;
+   }
+}
+function checkSidebar(orientation) {
+    var val_to_check = '';
+    var elm = '';
+    if(orientation.toLowerCase() === 'left') {
+        val_to_check += 'sidebarLeft';
+        elm += '#sidebar-left';
+    }
+    else {
+        val_to_check += 'sidebarRight';
+        elm += '#sidebar-right';
+    }
+    var the_setting = getSettingsFromLocalStorage(val_to_check);
 
-$(document).ready(function() {
+    if(the_setting === 'close') {
+        $(elm).addClass('active');
+    }
+}
 
-	// Fix readonly
-	$('body').on('click', '.readonly', function() {
-
-	    return false;
-	});
-
-	// Disable submit button on form sending
-	$('body').on('submit', 'form', function() {
-
-		disableElements($(this).find('.send-form'));
-	});
-
-	// Toggle theme
-	$('#theme-switch').on('change', function() {
-
-	    $(this).closest('form').submit();
-	});
-});
+module.exports = {
+    enableElements,
+    disableElements,
+    defineLangDatable,
+}
