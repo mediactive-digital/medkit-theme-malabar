@@ -79,6 +79,9 @@ function checkSidebar(orientation) {
     if(the_setting === 'close') {
         $(elm).addClass('active');
     }
+    else {
+        $(elm).removeClass('active');
+    }
 }
 
 module.exports = {
