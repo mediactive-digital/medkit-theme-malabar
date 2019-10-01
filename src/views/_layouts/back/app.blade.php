@@ -55,12 +55,15 @@
         @include('medKitTheme::_layouts.back.partials.sidebar')
         <main role="main" class="main-admin">
                 
-
-                <div id="flash-messages">
-                    @include('medKitTheme::_layouts.back.partials.flash_messages')
+                <div class="container-fluid">
+                    <div id="flash-messages">
+                        @include('medKitTheme::_layouts.back.partials.flash_messages')
+                    </div>
                 </div>
 
                 @yield('content')
+                
+                
         </main>
     </div>
 
