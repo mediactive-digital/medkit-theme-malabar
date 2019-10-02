@@ -118,7 +118,7 @@ header {
     align-items: stretch;
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
-    height: calc(100% - 87px);
+    // height: calc(100% - 87px);
 }
 .wrapper .sticky-top {
     top: 90px;
@@ -126,6 +126,22 @@ header {
 #sidebar-left li > a {
     font-size: .9rem;
 }
+
+#sidebar-left {
+  .sticky-top:nth-child(1) {
+    position: fixed;
+    left: 235px;
+    top:50%;
+    transition: .2s all ease;
+    transform: translateY(-50%);
+  }
+  &.active {
+    .sticky-top:nth-child(1) {
+      left: 75px;
+    }
+  }
+}
+
 button#sidebar-leftCollapse {
     float: right;
     min-height: 81.1vh;
@@ -139,7 +155,7 @@ button#sidebar-rightCollapse {
 button#sidebar-leftCollapse,
 button#sidebar-rightCollapse {
     padding: 0;
-
+    
     border: none;
     background: transparent;
     -webkit-box-shadow: none;

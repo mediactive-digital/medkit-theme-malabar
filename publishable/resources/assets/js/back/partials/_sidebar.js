@@ -18,10 +18,12 @@ jQuery(document).ready(($) => {
 		// $('#sidebar-left').toggleClass('active');
 		if($('#sidebar-left').hasClass('active') == false) {
 			$('#sidebar-left').addClass('active');
+			$('body').removeClass('sidebar-is-opened');
 			localStorage.setItem('sidebarLeft', 'close');
 		}
 		else {
 			$('#sidebar-left').removeClass('active');
+			$('body').addClass('sidebar-is-opened');
 			localStorage.setItem('sidebarLeft', 'open');
 		}
 	});
@@ -29,10 +31,12 @@ jQuery(document).ready(($) => {
 	$('#sidebar-rightCollapse').on('click', function () {
 		if($('#sidebar-right').hasClass('active') == false) {
 			$('#sidebar-right').addClass('active');
+			$('body').removeClass('sidebar-is-opened');
 			localStorage.setItem('sidebarRight', 'close');
 		}
 		else {
 			$('#sidebar-right').removeClass('active');
+			$('body').addClass('sidebar-is-opened');
 			localStorage.setItem('sidebarRight', 'open');
 		}
 	});

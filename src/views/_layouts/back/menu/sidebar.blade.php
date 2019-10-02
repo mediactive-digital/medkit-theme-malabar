@@ -1,4 +1,14 @@
-<ul id="menu" class="list-unstyled mt-5">
+@php
+
+if(isset($dropdownId)) {
+    $id_menu = $dropdownId;
+}
+else {
+    $id_menu = "menu";
+}
+
+@endphp
+<ul id="{{ $id_menu }}" class="list-unstyled mt-5">
     @foreach($items as $item)
 
         @php
@@ -27,11 +37,11 @@
                     $dropdown = $hasChildren ? '<i class="material-icons" aria-hidden="true">keyboard_arrow_down</i>' : '';
                     $hasDropdown = $dropdown ? ' has-dropdown' : '';
 
-                    $title = '<span class="title' . $hasIcon . $hasDropdown . '">' . $item->title . '</span>';
+                    $title = '<span class="title' . $hasIcon .  '">' . $item->title . '</span>';
 
                 @endphp
 
-                <a@lm-attrs($item->link)  @lm-endattrs href="{!! $item->url() !!}">{!! $icon !!}{!! $title !!}{!! $dropdown !!}</a>
+                <a@lm-attrs($item->link)  @lm-endattrs data-toggle="collapse" aria-expanded="false" href="{!! $item->url() !!}">{!! $icon !!}{!! $title !!}{!! $dropdown !!}</a>
 
             @else
 
@@ -47,7 +57,7 @@
 
             @if($hasChildren)
 
-                @include(config('laravel-menu.views.back.sidebar'), array('items' => $item->children()))
+                @include(config('laravel-menu.views.back.sidebar'), array('items' => $item->children(), 'dropdownId' => {!! $item->url() !!}))
 
             @endif
         </li>

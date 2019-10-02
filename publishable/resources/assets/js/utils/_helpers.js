@@ -78,9 +78,11 @@ function checkSidebar(orientation) {
 
     if(the_setting === 'close') {
         $(elm).addClass('active');
+        $('body').removeClass('sidebar-is-opened');
     }
     else {
         $(elm).removeClass('active');
+        $('body').addClass('sidebar-is-opened');
     }
 }
 
