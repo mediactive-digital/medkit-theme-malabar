@@ -2,13 +2,15 @@
 
 if(isset($dropdownId)) {
     $id_menu = $dropdownId;
+    $isDropdown = "list-unstyled collapse";
 }
 else {
     $id_menu = "menu";
+    $isDropdown = "list-unstyled mt-5";
 }
 
 @endphp
-<ul id="{{ $id_menu }}" class="list-unstyled mt-5">
+<ul id="{{ $id_menu }}" class="{{ $isDropdown }}">
     @foreach($items as $item)
 
         @php
@@ -33,15 +35,19 @@ else {
                         $hasIcon = $icon ? ' has-icon' : '';
                     }
                     // $dropdownJsAttributes = $hasChildren ? '' : '';
-
-                    $dropdown = $hasChildren ? '<i class="material-icons" aria-hidden="true">keyboard_arrow_down</i>' : '';
+                    // if($hasChildren) {
+                    //     dd($item);
+                    // }
+                   
+                    $dropdown = $hasChildren ? '#'.$item->title : $item->url();
+                    $dropdownAttrs = $hasChildren ? 'data-toggle="collapse" aria-expanded="false"' : '';
                     $hasDropdown = $dropdown ? ' has-dropdown' : '';
 
                     $title = '<span class="title' . $hasIcon .  '">' . $item->title . '</span>';
 
                 @endphp
 
-                <a@lm-attrs($item->link)  @lm-endattrs data-toggle="collapse" aria-expanded="false" href="{!! $item->url() !!}">{!! $icon !!}{!! $title !!}{!! $dropdown !!}</a>
+                <a@lm-attrs($item->link)  @lm-endattrs {!! $dropdownAttrs !!}  href="{!! $dropdown !!}">{!! $icon !!}{!! $title !!}</a>
 
             @else
 
@@ -49,15 +55,16 @@ else {
                     $icon = $hasIcon = '';
                     $icon = $item->data('icon');
                     $icon = $icon ? '<i class="material-icons" aria-hidden="true">' . $icon . '</i>' : '';
+                    
                 @endphp
-
+                
                 <a href="#"><span class="title">{!! $icon !!}{!! $item->title !!}</span></a>
 
             @endif
 
             @if($hasChildren)
 
-                @include(config('laravel-menu.views.back.sidebar'), array('items' => $item->children(), 'dropdownId' => {!! $item->url() !!}))
+                @include(config('laravel-menu.views.back.sidebar'), array('items' => $item->children(), 'dropdownId' => $item->title ))
 
             @endif
         </li>
