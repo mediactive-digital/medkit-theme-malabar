@@ -37,6 +37,8 @@ import Swal from 'sweetalert2'
 var DataTable = require('datatables.net');
 $ = jQuery = DataTable.$;
 
+require('datatables.net-src/js/integration/dataTables.bootstrap4');
+
 // require('jquery.actual');
 
 
