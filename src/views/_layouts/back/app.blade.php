@@ -68,6 +68,17 @@
                 
                 
         </main>
+        {{-- a prevoir deuxième emplacement de sidebar si besoin...--}}
+        <div id="sidebar-right" class="d-sm-block">
+            <div class="sticky-top pt-5">
+                <button type="button" id="sidebar-rightCollapse" class="btn btn-info navbar-btn d-sm-block">
+                    <span>Message</span>
+                </button>
+                <div class="sidebar-header p-4">
+                    Ma super deuxième sidebar		</div>
+                
+            </div>
+        </div>
     </div>
 
 
