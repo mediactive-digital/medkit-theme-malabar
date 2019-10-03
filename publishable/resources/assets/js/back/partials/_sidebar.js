@@ -2,7 +2,7 @@ import { checkSidebar } from '../../utils/_helpers';
 
 // console.log('checkSidebar', checkSidebar)
 
-var orientations = ['left'];
+var orientations = ['left', 'right'];
 for (let index = 0; index < orientations.length; index++) {
         const orientation = orientations[index];
         checkSidebar(orientation);
