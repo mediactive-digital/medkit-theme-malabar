@@ -2,11 +2,11 @@
 
 if(isset($dropdownId)) {
     $id_menu = $dropdownId;
-    $isDropdown = "list-unstyled collapse";
+    $isDropdown = "list-unstyled collapse menu-secondaire";
 }
 else {
     $id_menu = "menu";
-    $isDropdown = "list-unstyled mt-5";
+    $isDropdown = "list-unstyled mt-5 menu-principal";
 }
 
 @endphp

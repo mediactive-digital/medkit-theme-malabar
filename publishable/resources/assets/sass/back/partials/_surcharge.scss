@@ -714,6 +714,20 @@ div.card-img-top {
         box-shadow: 0 0 30px #49505791;
     }
 
+    #sidebar-left {
+        position: absolute;
+        left: 1px;
+        z-index: 1000;
+        height: 100%;
+        max-width: 250px;
+        min-width: 250px;
+        min-height: 92vh;
+        margin-right: -250px;
+        text-align: center;
+        border-left: 2px solid #473537;
+        box-shadow: 0 0 30px #49505791;
+    }
+
 
     #sidebar-right {
         position: absolute;
@@ -916,6 +930,11 @@ div.card-img-top {
 .is-invalid .custom-control-label { color : #D0021B; }
 
 .edit-compte:hover { cursor:pointer; }
+
+.menu-principal {
+    position: absolute;
+    width: 100%;
+}
 
 .tag .close {
     float: right;
