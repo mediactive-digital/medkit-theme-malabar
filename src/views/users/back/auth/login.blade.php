@@ -5,9 +5,9 @@
         <div id="bg_joli_a_mettre" class="bg-primary d-none d-lg-block col-lg-6 h-100 text-light p-0">
             <div class="d-flex h-100  justify-content-center">
                 <div class="align-self-center">
-                    <p class="h1 mb-5">Joli titre </p>
-                    <h1 class="bg-primary d-inline p-2 ">de mon joli back a mettre</h1>
-                    <p class="mt-5 h2">avec une jolie  date<br> par exemple c'est pas mal non ?</p>
+                    <p class="h1 mb-5"> titre </p>
+                    <h1 class="bg-primary d-inline p-2 ">Sous titre possible ici</h1>
+                    <p class="mt-5 h2">une date <br></p>
                 </div>
             </div>
         </div>

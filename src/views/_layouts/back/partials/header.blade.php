@@ -4,7 +4,7 @@
 			
 			
 				<a class="navbar-brand m-2" href="#">
-					<h3 class="text-uppercase ml-5">Mon super client </h3>
+					<h3 class="text-uppercase ml-5">Logo Client </h3>
 				</a>
 				
 				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">

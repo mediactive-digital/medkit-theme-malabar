@@ -75,7 +75,8 @@
                     <span>Message</span>
                 </button>
                 <div class="sidebar-header p-4">
-                    Ma super deuxième sidebar		</div>
+                    Seconde Sidebar        
+                </div>
                 
             </div>
         </div>
