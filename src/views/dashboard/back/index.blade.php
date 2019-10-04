@@ -9,7 +9,7 @@
                 <div class="card-header">Admin panel</div>
 
                 <div class="card-body">
-                    You are logged. Et ouais , c'pas mal c'te thème bootstrap hein ?
+                    Cool.You are logged.
                 </div>
             </div>
         </div>
