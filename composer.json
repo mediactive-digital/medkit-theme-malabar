@@ -12,7 +12,7 @@
     "homepage": "https://github.com/mediactive-digital/medkit-theme-malabar",
     "keywords": ["Laravel", "MedKit", "boilerplate"],
     "require": {
-        "illuminate/support": "~5",
+        "illuminate/support": "~6",
         "lavary/laravel-menu" : "^1.7",
         "mediactive-digital/medkit" : "*"
     },
