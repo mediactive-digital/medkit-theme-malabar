@@ -22,7 +22,7 @@ else {
         @endphp
 
         <li@lm-attrs($item) class="{{ $class }}" @lm-endattrs>
-            @if($link) 
+            @if($link)
 
                 @php
 
@@ -38,7 +38,7 @@ else {
                     // if($hasChildren) {
                     //     dd($item);
                     // }
-                   
+
                     $dropdown = $hasChildren ? '#'.$item->title : $item->url();
                     $dropdownAttrs = $hasChildren ? 'data-toggle="collapse" aria-expanded="false"' : '';
                     $hasDropdown = $dropdown ? ' has-dropdown' : '';
@@ -51,20 +51,20 @@ else {
 
             @else
 
-                @php 
+                @php
                     $icon = $hasIcon = '';
                     $icon = $item->data('icon');
                     $icon = $icon ? '<i class="material-icons" aria-hidden="true">' . $icon . '</i>' : '';
-                    
+
                 @endphp
-                
+
                 <a href="#"><span class="title">{!! $icon !!}{!! $item->title !!}</span></a>
 
             @endif
 
             @if($hasChildren)
 
-                @include(config('laravel-menu.views.back.sidebar'), array('items' => $item->children(), 'dropdownId' => $item->title ))
+                @include("medKitTheme::_layouts.back.menu.sidebar", array('items' => $item->children(), 'dropdownId' => $item->title ))
 
             @endif
         </li>
