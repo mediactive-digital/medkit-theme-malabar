@@ -1,6 +1,6 @@
 (function ($, DataTable) {
     "use strict";
- 
+    alert('true');
     var _buildParams = function (dt, action, onlyVisibles) {
         var params = dt.ajax.params();
         params.action = action;

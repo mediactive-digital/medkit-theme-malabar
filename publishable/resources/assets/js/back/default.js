@@ -74,5 +74,6 @@ require( 'datatables.net-buttons' )( window, $ );
 
 require('./partials/_sidebar');
 require('../utils/_helpers');
+require('../utils/datatables/buttons.server-side');
 
 /* header */
