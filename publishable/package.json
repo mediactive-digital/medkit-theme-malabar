@@ -25,6 +25,7 @@
         "datatables.net": "^1.10.19",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-src": "git+https://github.com/DataTables/DataTablesSrc.git#1.10.19",
+        "datatables.net-buttons": "^1.6.1",
         "gsap": "^2.1.2",
         "imagemin": "^6.1.0",
         "imagemin-webp": "^5.1.0",
