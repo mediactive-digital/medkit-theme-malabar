@@ -40,7 +40,7 @@ $ = jQuery = DataTable.$;
 require('datatables.net-src/js/integration/dataTables.bootstrap4');
 
 // require('jquery.actual');
-
+require( 'datatables.net-buttons' )( window, $ );
 
 
 // window.lazyLoadInstance = new LazyLoad({
