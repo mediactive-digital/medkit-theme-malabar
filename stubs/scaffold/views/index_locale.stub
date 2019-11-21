@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('medKitTheme::_layouts.back.app')
 
 @section('content')
     <ol class="breadcrumb">
