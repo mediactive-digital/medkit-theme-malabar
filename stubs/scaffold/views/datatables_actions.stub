@@ -9,7 +9,7 @@
     {!! Form::button('<i class="material-icons text-danger">delete</i>', [
         'type' => 'submit',
         'class' => 'btn',
-        'onclick' => "return confirm('Êtes-vous sûr?')"
+        'onclick' => "return confirm('" . _i("Êtes-vous sûr?") ."')"
     ]) !!}
 </div>
 {!! Form::close() !!}
