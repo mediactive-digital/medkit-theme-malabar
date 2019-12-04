@@ -36,6 +36,8 @@ import 'promise-polyfill/src/polyfill';
 var DataTable = require('datatables.net');
 $ = jQuery = DataTable.$;
 
+require('select2');
+
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"
 //     // ... more custom settings?
