@@ -95,10 +95,11 @@
 
 	<?php 
 	/** <!-- Translations --> {!! Translation::get() !!}  */ 
-	$locale =  LaravelGettext::getLocale();
-	?>
-	{!! MDAsset::addJs(['translations.' . $locale, 'routes']) !!}
-
+	$locale =  LaravelGettext::getLocale(); 
+	?> 
+	<script src="{!! 	asset('js/translations/'.$locale.'.js')  !!}" ></script>
+	<script src="{!! 	asset('js/routes.js')  !!}" ></script>
+   
     <!-- General Theme script -->
     {!! MDAsset::addJs('back.default') !!}
 
