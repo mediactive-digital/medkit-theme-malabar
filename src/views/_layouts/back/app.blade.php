@@ -93,8 +93,11 @@
 
     @include('medKitTheme::_layouts.back.partials.footer')
 
-    <!-- Translations -->
-    {!! Translation::get() !!}
+	<?php 
+	/** <!-- Translations --> {!! Translation::get() !!}  */ 
+	$locale =  LaravelGettext::getLocale();
+	?>
+	{!! MDAsset::addJs(['translations.' . $locale, 'routes']) !!}
 
     <!-- General Theme script -->
     {!! MDAsset::addJs('back.default') !!}
