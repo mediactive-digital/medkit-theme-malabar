@@ -45,6 +45,16 @@ function numberFormat(number) {
     return parts.join(',');
 }
 
+// AJAX
+function ajaxSetup() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+}
+
 // Disable elements
 function disableElements(elements, loader) {
 
@@ -126,5 +136,6 @@ module.exports = {
     disableElements,
     defineLangDatable,
     defineInfoDatable,
-    numberFormat
+    numberFormat,
+    ajaxSetup
 }

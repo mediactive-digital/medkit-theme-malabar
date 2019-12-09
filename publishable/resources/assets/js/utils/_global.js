@@ -1,5 +1,6 @@
-$(document).ready(function() {
+// AJAX
+ajaxSetup();
 
-    defineLangDatable();
-    defineInfoDatable();
-});
+// Datatables
+defineLangDatable();
+defineInfoDatable();
