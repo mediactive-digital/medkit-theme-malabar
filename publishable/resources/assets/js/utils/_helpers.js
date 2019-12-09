@@ -1,14 +1,48 @@
+// Datatables
 
-function defineLangDatable() {
-    // Datatables
-    if (typeof($.fn.dataTable) !== 'undefined') {
+    // Set language
+    function defineLangDatable() {
+        
+        if (typeof($.fn.dataTable) !== 'undefined') {
 
-        $.extend(true, $.fn.dataTable.defaults, {
-            language: {
-                url: '/json/' + Lang.getLocale() + '/jquery.dataTables.json'
-            }
-        });
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: Lang.getDataTable()
+            });
+        }
     }
+
+    // Format information messages
+    function defineInfoDatable() {
+        
+        if (typeof($.fn.dataTable) !== 'undefined') {
+
+            $.extend(true, $.fn.dataTable.defaults, {
+                infoCallback: function(settings, start, end, max, total) {
+
+                    var info = settings.oLanguage.sInfo || '';
+
+                    if (info) {
+
+                        info = info.replace(/_START_/g, numberFormat(start))
+                            .replace(/_END_/g, numberFormat(end))
+                            .replace(/_MAX_/g,  numberFormat(max))
+                            .replace(/_TOTAL_/g, numberFormat(total));
+                    }
+
+                    return info;
+                }
+            });
+        }
+    }
+
+// Format numbers with locale
+function numberFormat(number) {
+
+    var parts = number.toString().split('.');
+
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, Lang.getLocale() == 'fr' ? ' ' : '.');
+    
+    return parts.join(',');
 }
 
 // Disable elements
@@ -91,4 +125,6 @@ module.exports = {
     enableElements,
     disableElements,
     defineLangDatable,
+    defineInfoDatable,
+    numberFormat
 }

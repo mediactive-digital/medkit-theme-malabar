@@ -32,12 +32,9 @@ import Swal from 'sweetalert2'
 // Support promise
 import 'promise-polyfill/src/polyfill';
 
-
 /* DATATABLES */
 var DataTable = require('datatables.net');
 $ = jQuery = DataTable.$;
-
-
 
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"
@@ -63,12 +60,5 @@ $ = jQuery = DataTable.$;
 /* magnify */
 // require('magnify');
 
-
-
-
-
-
-
 require('../utils/_helpers');
-
-/* header */
+require('../utils/_global');

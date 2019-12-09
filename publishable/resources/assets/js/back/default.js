@@ -32,7 +32,6 @@ import Swal from 'sweetalert2'
 // Support promise
 // import 'promise-polyfill/src/polyfill';
 
-
 /* DATATABLES */
 var DataTable = require('datatables.net');
 $ = jQuery = DataTable.$;
@@ -40,7 +39,6 @@ $ = jQuery = DataTable.$;
 require('datatables.net-src/js/integration/dataTables.bootstrap4');
 
 require( 'datatables.net-buttons' )( window, $ );
-
 
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"
@@ -66,10 +64,7 @@ require( 'datatables.net-buttons' )( window, $ );
 /* magnify */
 // require('magnify');
 
-
-
 require('./partials/_sidebar');
 require('../utils/_helpers');
+require('../utils/_global');
 require('../utils/datatables/buttons.server-side');
-
-/* header */
