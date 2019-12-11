@@ -93,12 +93,15 @@
 
     @include('medKitTheme::_layouts.back.partials.footer')
 
-	<?php 
-	/** <!-- Translations --> {!! Translation::get() !!}  */ 
-	$locale =  LaravelGettext::getLocale(); 
-	?> 
-	<script src="{!! 	asset('js/translations/'.$locale.'.js')  !!}" ></script>
-	<script src="{!! 	asset('js/routes.js')  !!}" ></script>
+	@php
+	   // Translations
+	   $locale = LaravelGettext::getLocale();
+	@endphp
+    <!-- Translations -->
+	<script type="text/javascript" src="{{ asset('js/translations/' . $locale . '.js') }}" ></script>
+    
+    <!-- Routes -->
+	<script type="text/javascript" src="{{ asset('js/routes.js') }}" ></script>
    
     <!-- General Theme script -->
     {!! MDAsset::addJs('back.default') !!}
