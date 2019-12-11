@@ -27,7 +27,7 @@ window.Circ = Circ;
 // import LazyLoad from 'vanilla-lazyload';
 
 //sweetAlert
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 // Support promise
 import 'promise-polyfill/src/polyfill';
@@ -60,5 +60,7 @@ $ = jQuery = DataTable.$;
 /* magnify */
 // require('magnify');
 
-require('../utils/_helpers');
+import Helpers from '../utils/_helpers';
+window.Helpers = Helpers;
+
 require('../utils/_global');

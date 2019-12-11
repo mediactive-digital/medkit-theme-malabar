@@ -27,7 +27,7 @@ require('sprintf-js');
 // import LazyLoad from 'vanilla-lazyload';
 
 //sweetAlert
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 // Support promise
 // import 'promise-polyfill/src/polyfill';
@@ -38,7 +38,7 @@ $ = jQuery = DataTable.$;
 
 require('datatables.net-src/js/integration/dataTables.bootstrap4');
 
-require( 'datatables.net-buttons' )( window, $ );
+require('datatables.net-buttons')(window, $);
 
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"
@@ -64,7 +64,11 @@ require( 'datatables.net-buttons' )( window, $ );
 /* magnify */
 // require('magnify');
 
-require('./partials/_sidebar');
-require('../utils/_helpers');
-require('../utils/_global');
 require('../utils/datatables/buttons.server-side');
+
+import Helpers from '../utils/_helpers';
+window.Helpers = Helpers;
+
+require('../utils/_global');
+
+require('./partials/_sidebar');

@@ -1,6 +1,6 @@
 // AJAX
-ajaxSetup();
+Helpers.ajaxSetup();
 
 // Datatables
-defineLangDatable();
-defineInfoDatable();
+Helpers.defineLangDatable();
+Helpers.defineInfoDatable();
