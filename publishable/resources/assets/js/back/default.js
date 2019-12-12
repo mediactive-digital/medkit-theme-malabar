@@ -40,6 +40,9 @@ require('datatables.net-src/js/integration/dataTables.bootstrap4');
 
 require('datatables.net-buttons')(window, $);
 
+require('select2');
+
+
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"
 //     // ... more custom settings?
