@@ -42,8 +42,15 @@
         @yield('content')
     </main>
 
+    @php
+       // Translations
+       $locale = LaravelGettext::getLocale();
+    @endphp
     <!-- Translations -->
-    {!! Translation::get() !!}
+    <script type="text/javascript" src="{{ asset('js/translations/' . $locale . '.js') }}" ></script>
+    
+    <!-- Routes -->
+    <script type="text/javascript" src="{{ asset('js/routes.js') }}" ></script>
 
     <!-- General Theme script -->
     {!! MDAsset::addJs('back.default') !!}

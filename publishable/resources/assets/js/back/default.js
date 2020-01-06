@@ -27,11 +27,10 @@ require('sprintf-js');
 // import LazyLoad from 'vanilla-lazyload';
 
 //sweetAlert
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 // Support promise
 // import 'promise-polyfill/src/polyfill';
-
 
 /* DATATABLES */
 var DataTable = require('datatables.net');
@@ -39,8 +38,9 @@ $ = jQuery = DataTable.$;
 
 require('datatables.net-src/js/integration/dataTables.bootstrap4');
 
-// require('jquery.actual');
+require('datatables.net-buttons')(window, $);
 
+require('select2');
 
 
 // window.lazyLoadInstance = new LazyLoad({
@@ -67,12 +67,11 @@ require('datatables.net-src/js/integration/dataTables.bootstrap4');
 /* magnify */
 // require('magnify');
 
+require('../utils/datatables/buttons.server-side');
 
+import Helpers from '../utils/_helpers';
+window.Helpers = Helpers;
 
-
-
+require('../utils/_global');
 
 require('./partials/_sidebar');
-require('../utils/_helpers');
-
-/* header */

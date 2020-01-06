@@ -967,3 +967,38 @@ div.card-img-top {
 }
 
 .link-white { color:#ffffff; }
+
+button.dt-button, div.dt-button, a.dt-button {
+    // background-image:none;
+    background-image: none;
+    background-color: #EE0978;
+    color:white;
+    border-color: #EE0978;
+    &:hover, &:focus {
+        background-image: none!important;
+        background-color: darken(#EE0978, .3%);
+        color:white;
+        border-color: darken(#EE0978, .3%);
+    }
+}
+button.dt-button svg {
+    margin-right:10px;
+}
+button.dt-button svg path,button.dt-button svg circle  {
+    fill: white;
+}
+
+button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-button:hover:not(.disabled),
+button.dt-button:focus:not(.disabled), div.dt-button:focus:not(.disabled), a.dt-button:focus:not(.disabled),
+button.dt-button:active:not(.disabled), button.dt-button.active:not(.disabled), div.dt-button:active:not(.disabled), 
+div.dt-button.active:not(.disabled), a.dt-button:active:not(.disabled), a.dt-button.active:not(.disabled) {
+    background-color: darken(#EE0978, .6%)!important;
+    color:white;
+    border-color: darken(#EE0978, .6%)!important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:focus {
+    background-image: none;
+    border-color: transparent;
+    background-color: transparent;
+}

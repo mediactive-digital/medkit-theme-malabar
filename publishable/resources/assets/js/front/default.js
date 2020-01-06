@@ -27,17 +27,16 @@ window.Circ = Circ;
 // import LazyLoad from 'vanilla-lazyload';
 
 //sweetAlert
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 // Support promise
 import 'promise-polyfill/src/polyfill';
-
 
 /* DATATABLES */
 var DataTable = require('datatables.net');
 $ = jQuery = DataTable.$;
 
-
+require('select2');
 
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"
@@ -63,12 +62,7 @@ $ = jQuery = DataTable.$;
 /* magnify */
 // require('magnify');
 
+import Helpers from '../utils/_helpers';
+window.Helpers = Helpers;
 
-
-
-
-
-
-require('../utils/_helpers');
-
-/* header */
+require('../utils/_global');
