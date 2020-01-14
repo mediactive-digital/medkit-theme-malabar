@@ -44,6 +44,8 @@
 
                         if (info) {
 
+                            start = start > end ? end : start;
+
                             info = info.replace(/_START_/g, _this.numberFormat(start))
                                 .replace(/_END_/g, _this.numberFormat(end))
                                 .replace(/_MAX_/g,  _this.numberFormat(max))
