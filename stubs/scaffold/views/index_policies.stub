@@ -15,7 +15,7 @@
                              {!! _i('$MODEL_NAME_PLURAL$') !!}
 
                             @if(auth()->user()->can('create', App\Models\$MODEL_NAME$::class)) 
-                             <a class="pull-right" href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create') !!}">
+                             <a class="pull-right" href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.create') !!}">
                                 <i class="material-icons">add_box</i>
                              </a>
                             @endif
