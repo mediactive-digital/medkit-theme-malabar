@@ -3,7 +3,7 @@
 @section('content')
     <ol class="breadcrumb">
           <li class="breadcrumb-item">
-             <a href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') !!}">@lang('models/$MODEL_NAME_PLURAL_CAMEL$.singular')</a>
+             <a href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.index') !!}">@lang('models/$MODEL_NAME_PLURAL_CAMEL$.singular')</a>
           </li>
           <li class="breadcrumb-item active">@lang('crud.edit')</li>
         </ol>
@@ -18,7 +18,7 @@
                               <strong>Edit @lang('models/$MODEL_NAME_PLURAL_CAMEL$.singular')</strong>
                           </div>
                           <div class="card-body">
-                              {!! Form::model($$MODEL_NAME_CAMEL$, ['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$], 'method' => 'patch'$FILES$]) !!}
+                              {!! Form::model($$MODEL_NAME_CAMEL$, ['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.update', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$], 'method' => 'patch'$FILES$]) !!}
 
                               @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.fields')
 

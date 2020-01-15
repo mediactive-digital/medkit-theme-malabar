@@ -3,7 +3,7 @@
 @section('content')
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-         <a href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') !!}">{!! _i('$MODEL_NAME_HUMAN$') !!}</a>
+         <a href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.index') !!}">{!! _i('$MODEL_NAME_HUMAN$') !!}</a>
       </li>
       <li class="breadcrumb-item active">{!! _i('Créer') !!}</li>
     </ol>

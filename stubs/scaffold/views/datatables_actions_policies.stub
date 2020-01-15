@@ -1,16 +1,16 @@
-{!! Form::open(['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy', $$PRIMARY_KEY_NAME$], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.destroy', $$PRIMARY_KEY_NAME$], 'method' => 'delete']) !!}
 <div class='btn-group'>
     <?php 
     $$MODEL_NAME_PLURAL_CAMEL$ = \App\Models\$MODEL_NAME$::where('id', '=', $id)->first();
     ?> 
     @if(auth()->user()->can('view', $$MODEL_NAME_PLURAL_CAMEL$))  
-        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', $$PRIMARY_KEY_NAME$) }}" class='btn'>
+        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.show', $$PRIMARY_KEY_NAME$) }}" class='btn'>
            <i class="material-icons text-success">remove_red_eye</i>
         </a>
     @endif
 	
     @if(auth()->user()->can('update', $$MODEL_NAME_PLURAL_CAMEL$))   
-        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', $$PRIMARY_KEY_NAME$) }}" class='btn'>
+        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.edit', $$PRIMARY_KEY_NAME$) }}" class='btn'>
             <i class="material-icons text-info">edit</i>
         </a>
     @endif
