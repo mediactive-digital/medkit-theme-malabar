@@ -6,13 +6,18 @@
         {!! Form::customLabel($name, $options['label'], $options['label_attr']) !!}
     @endif
 
-    @if ($showField)
-        @foreach($options['value'] as $lang => $value)
-            <div class="form-group">
-                {!! Form::customLabel($name . '[' . $lang . ']', $lang, ['class' => 'control-label']) !!}
-                {!! $value !!}
-            </div>
-        @endforeach
+    @if ($showField && $options['value'])
+        <div class="form-group">
+            @foreach($options['value'] as $tags)
+                {!! $tags['button'] !!}
+            @endforeach
+        </div>
+
+        <div class="form-group">
+            @foreach($options['value'] as $tags)
+                {!! $tags['field'] !!}
+            @endforeach
+        </div>
     @endif
 
     @if($showError && isset($errors) && $errors->hasBag($errorBag))
