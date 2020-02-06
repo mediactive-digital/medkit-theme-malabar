@@ -1,5 +1,5 @@
 @if ($showField && $options['wrapper'])
-    <div {!! $options['wrapperAttrs'] !!}>
+    <li {!! $options['wrapperAttrs'] !!}>
 @endif
 
     @if ($showLabel && $options['label'] && $options['label_show'])
@@ -46,19 +46,24 @@
 
                         <div class="tab-pane fade {{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tabpanel" aria-labelledby="{{ $options['real_name'] }}-{{ $lang }}-tab">
                             @if ($element['field']['type'] == "textarea")
-                            <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
-                        @else
-                            <{!!$element['field']['type']!!} type="{{ $element['field']['attributes']['type'] }}" value="{{ $element['field']['attributes']['value'] }}" name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}"/>
-                        @endif
+                                <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
+                            @else
+                                <{!!$element['field']['type']!!} type="{{ $element['field']['attributes']['type'] }}" value="{{ $element['field']['attributes']['value'] }}" name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}"/>
+                            @endif
                         </div>
 
                     @endforeach
             @endif
         </div>
 
+
     @if($showError && isset($errors) && $errors->hasBag($errorBag))
-        @foreach($errors->getBag($errorBag)->get($nameKey) as $err)
-            <div {!! $options['errorAttrs'] !!}> {!! $err !!} </div>
+        @foreach($errors->getBag($errorBag)->getMessages() as $key => $errs)
+            @if ($key == $nameKey || Str::startsWith($key, $nameKey . '.'))
+                @foreach($errs as $err)
+                    <div {!! $options['errorAttrs'] !!}>{{ $err }}</div>
+                @endforeach
+            @endif
         @endforeach
     @endif
 

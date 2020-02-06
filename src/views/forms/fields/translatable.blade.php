@@ -58,8 +58,12 @@
 
 
     @if($showError && isset($errors) && $errors->hasBag($errorBag))
-        @foreach($errors->getBag($errorBag)->get($nameKey) as $err)
-            <div {!! $options['errorAttrs'] !!}> {!! $err !!} </div>
+        @foreach($errors->getBag($errorBag)->getMessages() as $key => $errs)
+            @if ($key == $nameKey || Str::startsWith($key, $nameKey . '.'))
+                @foreach($errs as $err)
+                    <div {!! $options['errorAttrs'] !!}>{{ $err }}</div>
+                @endforeach
+            @endif
         @endforeach
     @endif
 
