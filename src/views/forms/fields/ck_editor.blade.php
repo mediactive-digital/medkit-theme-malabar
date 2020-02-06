@@ -1,5 +1,5 @@
 @if ($showField && $options['wrapper'])
-    <li {!! $options['wrapperAttrs'] !!}>
+    <div {!! $options['wrapperAttrs'] !!}>
 @endif
 
     @if ($showLabel && $options['label'] && $options['label_show'])
