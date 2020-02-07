@@ -1,26 +1,23 @@
 {!! Form::open(['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.destroy', $$PRIMARY_KEY_NAME$], 'method' => 'delete']) !!}
-<div class='btn-group'>
-    <?php 
-    $$MODEL_NAME_PLURAL_CAMEL$ = \App\Models\$MODEL_NAME$::where('id', '=', $id)->first();
-    ?> 
-    @if(auth()->user()->can('view', $$MODEL_NAME_PLURAL_CAMEL$))  
-        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.show', $$PRIMARY_KEY_NAME$) }}" class='btn'>
+    <div class="btn-group">
+    @if(auth()->user()->can('view', $model))  
+        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.show', $$PRIMARY_KEY_NAME$) }}" class="btn">
            <i class="material-icons text-success">remove_red_eye</i>
         </a>
     @endif
-	
-    @if(auth()->user()->can('update', $$MODEL_NAME_PLURAL_CAMEL$))   
-        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.edit', $$PRIMARY_KEY_NAME$) }}" class='btn'>
+    
+    @if(auth()->user()->can('update', $model))   
+        <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.edit', $$PRIMARY_KEY_NAME$) }}" class="btn">
             <i class="material-icons text-info">edit</i>
         </a>
     @endif
   
-    @if(auth()->user()->can('delete', $$MODEL_NAME_PLURAL_CAMEL$)) 
+    @if(auth()->user()->can('delete', $model)) 
         {!! Form::button('<i class="material-icons text-danger">delete</i>', [
             'type' => 'submit',
             'class' => 'btn',
-            'onclick' => "return confirm('" . _i("Êtes-vous sûr?") ."')"
+            'onclick' => 'return confirm(\'' . _i('Êtes-vous sûr ?') . '\');'
         ]) !!}
     @endif
-</div>
+    </div>
 {!! Form::close() !!}
