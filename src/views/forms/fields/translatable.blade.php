@@ -35,18 +35,22 @@
                     @foreach($options['value'] as $lang => $element)
                         {{-- {!! $tags['field'] !!} --}}
                         @if ($loop->first)
-                        @php
-                            $active = 'active show';
-                        @endphp
-                    @else
-                        @php
-                            $active = '';
-                        @endphp
-                    @endif
+                            @php
+                                $active = 'active show';
+                            @endphp
+                        @else
+                            @php
+                                $active = '';
+                            @endphp
+                        @endif
 
                         <div class="tab-pane fade {{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tabpanel" aria-labelledby="{{ $options['real_name'] }}-{{ $lang }}-tab">
                             @if ($element['field']['type'] == "textarea")
-                                <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
+                                @if ($element['field']['ck_editor']) 
+                                    @include('medKitTheme::forms.fields.ck_editor', ['field' => $element])
+                                @else
+                                    <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
+                                @endif
                             @else
                                 <{!!$element['field']['type']!!} type="{{ $element['field']['attributes']['type'] }}" value="{{ $element['field']['attributes']['value'] }}" name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}"/>
                             @endif

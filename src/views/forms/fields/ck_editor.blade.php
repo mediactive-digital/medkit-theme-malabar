@@ -1,72 +1,41 @@
-@if ($showField && $options['wrapper'])
-    <div {!! $options['wrapperAttrs'] !!}>
-@endif
 
-    @if ($showLabel && $options['label'] && $options['label_show'])
-        {!! Form::customLabel($name, $options['label'], $options['label_attr']) !!}
+    @if ($element['field']['type'] == "textarea")
+    {{-- //js-ck-editor classe a ajouter --}}
+        <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}>{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
     @endif
-    
-    <ul class="nav nav-pills mb-4" id="myTab_{{ $options['real_name'] }}" role="tablist">
-        @if ($showField && $options['value'])
-            
-                    @foreach($options['value'] as $lang => $element)
-                        {{-- {!! $tags['button'] !!} --}}
-                        <li class="nav-item">
-                            @if ($loop->first)
-                                @php
-                                    $active = 'active';
-                                    $aria = 'true';
-                                @endphp
-                            @else
-                                @php
-                                    $active = '';
-                                    $aria = 'false';
-                                @endphp
-                            @endif
-                        <{!!$element['button']['type']!!} class="nav-link text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">{{$element['button']['value']}}</{!!$element['button']['type']!!}>
-                        </li>
-                    @endforeach
+                    
+
+{{-- {{ dump(isset($IS_ENABLED_CKEDITOR_TRANSLATABLE) ? 1 : 0) }} --}}
+{{-- https://www.npmjs.com/package/ckeditor5 --}}
+
+@if (!isset($IS_ENABLED_CKEDITOR_TRANSLATABLE))
+ @php 
+    $IS_ENABLED_CKEDITOR_TRANSLATABLE = true;
+    View::share ( 'IS_ENABLED_CKEDITOR_TRANSLATABLE', $IS_ENABLED_CKEDITOR_TRANSLATABLE );
+ @endphp
+    @push('scripts')
+        {!! MDAsset::addJs('back.ckeditor') !!}
+        <script>
+            $(document).ready(function() {
+                var elementsCKeditor = Array.prototype.slice.call(document.querySelectorAll('.js-ck-editor'));
+
+                for (var index_ck = 0; index_ck < elementsCKeditor.length; index_ck++) {
+                    var the_el = elementsCKeditor[index_ck];
+                    ClassicEditor
+                    .create( the_el, {
+                        removePlugins: [ 'Image', 'ImageToolbar', 'ImageCaption', 'ImageStyle', 'ImageResize' ],
+                        image: {}
+                    } )
+                    .then( editor => {
+                    } )
+                    .catch( error => {
+                        // console.error( error );
+                    } );
+                }
+
+                // console.log('elementCKeditor', elementCKeditor)
                 
-            
-        @endif
-        </ul>
-        <div class="tab-content">
-            @if ($showField && $options['value'])
-                    @foreach($options['value'] as $lang => $element)
-                        {{-- {!! $tags['field'] !!} --}}
-                        @if ($loop->first)
-                        @php
-                            $active = 'active show';
-                        @endphp
-                    @else
-                        @php
-                            $active = '';
-                        @endphp
-                    @endif
-
-                        <div class="tab-pane fade {{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tabpanel" aria-labelledby="{{ $options['real_name'] }}-{{ $lang }}-tab">
-                            @if ($element['field']['type'] == "textarea")
-                                <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
-                            @else
-                                <{!!$element['field']['type']!!} type="{{ $element['field']['attributes']['type'] }}" value="{{ $element['field']['attributes']['value'] }}" name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}"/>
-                            @endif
-                        </div>
-
-                    @endforeach
-            @endif
-        </div>
-
-
-    @if($showError && isset($errors) && $errors->hasBag($errorBag))
-        @foreach($errors->getBag($errorBag)->getMessages() as $key => $errs)
-            @if ($key == $nameKey || Str::startsWith($key, $nameKey . '.'))
-                @foreach($errs as $err)
-                    <div {!! $options['errorAttrs'] !!}>{{ $err }}</div>
-                @endforeach
-            @endif
-        @endforeach
-    @endif
-
-@if ($showField && $options['wrapper'])
-    </div>
+            });
+        </script>
+    @endpush
 @endif
