@@ -41,6 +41,8 @@ require('datatables.net-src/js/integration/dataTables.bootstrap4');
 require('datatables.net-buttons')(window, $);
 
 require('select2');
+window.Dropzone = require('dropzone');
+Dropzone.autoDiscover = false;
 
 
 // window.lazyLoadInstance = new LazyLoad({
