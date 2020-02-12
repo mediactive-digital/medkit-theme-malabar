@@ -9,7 +9,7 @@
 @endif
 
 @if ($showField)
-    {!! Form::input($type, $name, $options['value'], $options['attr']) !!}
+    {!! Form::input('file', $name, $options['value'], $options['attr']) !!}
 @endif
 
 @if($showError && isset($errors) && $errors->hasBag($errorBag))
