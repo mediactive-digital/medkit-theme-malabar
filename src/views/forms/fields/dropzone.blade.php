@@ -8,10 +8,23 @@
     {!! Form::customLabel($name, $options['label'], $options['label_attr']) !!}
 @endif
 
-@if ($showField)
-<div class="dropzone">
-    {!! Form::input('file', $name, $options['value'], $options['attr']) !!}
-</div>
+@if ($options['basic'] === 'dropzone') 
+    @php
+        $dropzoneId	= 'dropzone-' . $options['real_name'];
+    @endphp
+
+    @if ($showField)
+    <div id="{{$dropzoneId}}" class="dropzone">
+        {{-- {!! Form::input('file', $name, $options['value'], $options['attr']) !!}  --}}
+        {{-- A faire la gestion niveau js pour soumettre le fichier sans l'input  --}}
+    </div>
+    @endif
+@else 
+    <label class="zone-input-file" for="{{ $name }}">
+        <div class="text-drop-file">Upload</div>
+        <div class="text-uploaded-file">Changer</div>
+        {!! Form::input('file', $name, $options['value'], $options['attr']) !!} 
+    </label>
 @endif
 
 @if($showError && isset($errors) && $errors->hasBag($errorBag))
@@ -31,33 +44,62 @@
             $(document).ready(function() {
 
                 var optsFromBack = @json($options['jsDropzoneOpts']);
+                console.log('optsFromBack', optsFromBack)
 
-                var cibledInput = $("input[type='file'][name='{{  $options['real_name'] }}']");
-
-                var elementCibled = cibledInput.parent().get(0);
-
-
-                optsFromBack.init = function(){
-                    //set value of your hidden input field here
-                    this.on("addedfile", function(file) { 
-                        if(!optsFromBack.autoQueue) {
-                            console.log(true);
-                            // elementCibled.get(0).files[0] = file;
+                if(optsFromBack.basic === 'native') {
+                    var elInput = $('input[type="file"][name="{{ $name }}"]')
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+                            
+                            reader.onload = function(e) {
+                                console.log(e)
+                                elInput.parent().css({
+                                    'background-image': 'url('+e.target.result+')'
+                                });
+                                elInput.parent().addClass('have-uploaded-file');
+                            }
+                            
+                            reader.readAsDataURL(input.files[0]);
                         }
-                        // alert("Added file."); 
-                    });
-                    this.on("removedfile", function(file) { 
-                        if(!optsFromBack.autoQueue) {
-                            // elementCibled.val('');
-                        }
-                        // alert("Added file."); 
+                    }
+
+                    elInput.change(function() {
+                        readURL(this);
                     });
                 }
+                else {
+                    //dropzone accepted
+                    optsFromBack.headers = {
+                        'X-CSRF-TOKEN': window.Laravel.csrfToken
+                    }
+                    <?php 
+                        if($options['basic'] === 'dropzone') { ?>
+                            var elementCibled = $('#{{$dropzoneId}}');
+                        <?php }
+                    ?>
+                   
+                    optsFromBack.init = function(){
+                        //set value of your hidden input field here
+                        this.on("addedfile", function(file) { 
+                            if(!optsFromBack.autoQueue) {
+                                console.log(true);
+                                // elementCibled.get(0).files[0] = file;
+                            }
+                            // alert("Added file."); 
+                        });
+                        this.on("removedfile", function(file) { 
+                            if(!optsFromBack.autoQueue) {
+                                // elementCibled.val('');
+                            }
+                            // alert("Added file."); 
+                        });
+                    }
 
-                var myDropzone = new Dropzone(elementCibled, optsFromBack);
-
-                // console.log('elementCKeditor', elementCKeditor)
-                
+                    
+                    
+                    // var myDropzone = new Dropzone(elementCibled.get(0), optsFromBack);
+                }
             });
         </script>
     @endpush
