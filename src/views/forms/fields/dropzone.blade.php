@@ -22,7 +22,8 @@
 @else 
     <label class="zone-input-file" for="{{ $name }}">
         <div class="text-drop-file">Upload</div>
-        <div class="text-uploaded-file">Changer</div>
+        <div class="text-uploaded-file">Change</div>
+        <div class="drop-content-file">Drop here</div>
         {!! Form::input('file', $name, $options['value'], $options['attr']) !!} 
     </label>
 @endif
@@ -48,6 +49,7 @@
 
                 if(optsFromBack.basic === 'native') {
                     var elInput = $('input[type="file"][name="{{ $name }}"]')
+                    var dropZone = $('input[type="file"][name="{{ $name }}"]').parent();
                     function readURL(input) {
                         if (input.files && input.files[0]) {
                             var reader = new FileReader();
@@ -66,6 +68,27 @@
 
                     elInput.change(function() {
                         readURL(this);
+                    });
+
+                    dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    })
+
+                    dropZone.on('dragover dragenter', function() {
+                        $(this).addClass('is-dragover');
+                    })
+                    dropZone.on('dragleave dragend drop', function() {
+                        $(this).removeClass('is-dragover');
+                    })  
+                    
+                    dropZone.on('drop',function(e) {
+                        var files = e.originalEvent.dataTransfer.files;
+                        console.log('dropZone', dropZone)
+                        elInput.get(0).files = files;
+                        readURL(elInput.get(0));
+                        // Now select your file upload field 
+                        // $('input_field_file').prop('files',files)
                     });
                 }
                 else {
