@@ -32,17 +32,53 @@
         @endif
 
         @push('scripts')
-            <script>
-                $(document).ready(function() {
-                    var elementSelect2 = $('.js-select2');
-                    elementSelect2.select2({
-                        closeOnSelect: false,
-                        selectOnClose: false,
-                        multiple: true,
-                        allowClear: false
-                    });
+        <script>
+            $(document).ready(function() {
+                var elementSelect2 = $('.js-select2');
+
+                var optsSelect2 = {
+                    closeOnSelect: false,
+                    selectOnClose: false,
+                    multiple: true,
+                    allowClear: false
+                }
+                @if (isset($options['customRenderSelect2']) && count($options['customRenderSelect2']) > 0)
+                        var optsFromBackSelect2 = @json($options['customRenderSelect2']);
+                        function renderSelect2options(state) {
+                            if(state.text.indexOf('Searching') > -1) {
+                                return state;
+                            }
+                            var $state = optsFromBackSelect2.html;
+                            // console.log('state', state)
+                            // console.log('optsFromBackSelect2', optsFromBackSelect2)
+
+                            if($state.indexOf('##ID##') > -1 ) {
+                                $state = $state.replace('##ID##', state.id.toLowerCase());
+                            }
+
+                            if($state.indexOf('##TEXT##') > -1 ) {
+                                $state = $state.replace('##TEXT##', state.text);
+                            }
+                            
+                            
+
+                            return $($state);
+                        }
+
+                        
+                        optsSelect2.templateResult = renderSelect2options;
+                        optsSelect2.templateSelection = renderSelect2options;
+                @endif
+
+                
+                
+
+
+                elementSelect2.select2(optsSelect2);
+                @if (isset($options['selected']))
                     elementSelect2.val([{!! implode($options['selected'],',') !!}]).change();
-                });
-            </script>
+                @endif
+            });
+        </script>
         @endpush
 
