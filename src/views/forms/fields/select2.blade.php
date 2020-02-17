@@ -67,7 +67,7 @@
 
                         
                         optsSelect2.templateResult = renderSelect2options;
-                        optsSelect2.templateSelection = renderSelect2options;
+                        // optsSelect2.templateSelection = renderSelect2options;
                 @endif
 
                 
