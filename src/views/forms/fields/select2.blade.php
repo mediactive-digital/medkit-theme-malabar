@@ -9,7 +9,8 @@
         @endif
 
         @if ($showField)
-            {!! Form::select($name.'[]', $options['choices'], null, $options['attr']) !!}
+
+            {!! Form::select($name.(isset($options['select2Opts']['multiple']) && $options['select2Opts']['multiple'] ? '[]' : ''), $options['choices'], null, $options['attr']) !!}
 
             @if ($options['help_block']['text'] && !$options['is_child'])
                 <{!! $options['help_block']['tag'] !!} {!! $options['help_block']['helpBlockAttrs'] !!}>
@@ -35,13 +36,19 @@
         <script>
             $(document).ready(function() {
                 var elementSelect2 = $('.js-select2');
+                
+                
 
-                var optsSelect2 = {
-                    closeOnSelect: false,
-                    selectOnClose: false,
-                    multiple: true,
-                    allowClear: false
-                }
+
+                var optsSelect2 = @json($options['select2Opts']);  
+
+                // var optsSelect2 = {
+                //     closeOnSelect: false,
+                //     selectOnClose: false,
+                //     multiple: true
+                //     allowClear: false
+                // } // configuration par default champ select2 form builder todo
+
                 @if (isset($options['customRenderSelect2']) && count($options['customRenderSelect2']) > 0)
                         var optsFromBackSelect2 = @json($options['customRenderSelect2']);
                         function renderSelect2options(state) {
