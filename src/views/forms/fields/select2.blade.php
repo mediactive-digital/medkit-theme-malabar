@@ -35,19 +35,9 @@
         @push('scripts')
         <script>
             $(document).ready(function() {
+
                 var elementSelect2 = $('.js-select2');
-                
-                
-
-
                 var optsSelect2 = @json($options['select2Opts']);  
-
-                // var optsSelect2 = {
-                //     closeOnSelect: false,
-                //     selectOnClose: false,
-                //     multiple: true
-                //     allowClear: false
-                // } // configuration par default champ select2 form builder todo
 
                 @if (isset($options['customRenderSelect2']) && count($options['customRenderSelect2']) > 0)
                         var optsFromBackSelect2 = @json($options['customRenderSelect2']);
@@ -83,7 +73,7 @@
 
                 elementSelect2.select2(optsSelect2);
                 @if (isset($options['selected']))
-                    elementSelect2.val([{!! implode($options['selected'],',') !!}]).change();
+                    elementSelect2.val([{!! implode(',', $options['selected']) !!}]).change();
                 @endif
             });
         </script>
