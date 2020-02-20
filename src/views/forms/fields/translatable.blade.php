@@ -23,7 +23,7 @@
                                     $aria = 'false';
                                 @endphp
                             @endif
-                        <{!!$element['button']['type']!!} class="nav-link text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">{{$element['button']['value']}}</{!!$element['button']['type']!!}>
+                        <{!!$element['button']['type']!!} class="nav-link js-btn-translatable  btn border text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">{{$element['button']['value']}}</{!!$element['button']['type']!!}>
                         </li>
                     @endforeach
                 
@@ -49,10 +49,10 @@
                                 @if ($element['field']['ck_editor']) 
                                     @include('medKitTheme::forms.fields.ck_editor', ['field' => $element])
                                 @else
-                                    <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
+                                    <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="js-input-translatable {{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
                                 @endif
                             @else
-                                <{!!$element['field']['type']!!} type="{{ $element['field']['attributes']['type'] }}" value="{{ $element['field']['attributes']['value'] }}" name="{{ $element['field']['attributes']['name'] }}"  class="{{ $element['field']['attributes']['class'] }}"/>
+                                <{!!$element['field']['type']!!} type="{{ $element['field']['attributes']['type'] }}" value="{{ $element['field']['attributes']['value'] }}" name="{{ $element['field']['attributes']['name'] }}"  class="js-input-translatable {{ $element['field']['attributes']['class'] }}"/>
                             @endif
                         </div>
 
@@ -70,7 +70,41 @@
             @endif
         @endforeach
     @endif
+    
 
 @if ($showField && $options['wrapper'])
     </div>
+@endif
+
+@if (!isset($IS_ENABLED_TRANSLABLE_CHECKING))
+ @php 
+    $IS_ENABLED_TRANSLABLE_CHECKING = true;
+    View::share ( 'IS_ENABLED_TRANSLABLE_CHECKING', $IS_ENABLED_TRANSLABLE_CHECKING );
+ @endphp
+    @push('scripts')
+        <script>
+            jQuery(document).ready(function($) {
+                var inputsTranslatable = $(".js-input-translatable");
+                var tpl = '<i class="material-icons warning-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ _i("Attention ce champ est vide !") }}">warning</i>';
+
+                $(inputsTranslatable).each(function(i, translatable) {
+                    var the_val = $(translatable).val();
+                    if(the_val.length === 0) {
+                        // fuck off c'est vide...
+                        var the_btn = $('#'+ $(translatable).parent().attr('aria-labelledby') );
+                        console.log('the_btn', the_btn)
+                        var the_check_tooltip = the_btn.find('.warning-translatable');
+                        console.log('the_check_tooltip', the_check_tooltip)
+                        if(the_check_tooltip.length === 0) {
+                            the_btn.append(tpl);
+                        }
+                    }
+                })
+                $('.warning-translatable').tooltip();
+
+                
+
+            })
+        </script>
+    @endpush
 @endif
