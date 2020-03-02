@@ -100,6 +100,7 @@
                             readURL(elInput.get(0));
                         }
                         else {
+                            elInput.parent().css({'background-image': ''});
                             elInput.parent().addClass('is-video-image')
                         }
                         
