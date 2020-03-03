@@ -38,6 +38,8 @@
         "scrollreveal": "^4.0.5",
         "sprintf-js": "^1.1.2",
         "sweetalert2": "^7.33.1",
-        "select2": "^4.0.12"
+        "select2": "^4.0.12",
+        "@ckeditor/ckeditor5-build-classic": "^16.0.0",
+        "ckeditor5": "^16.0.0"
     }
 }
