@@ -45,14 +45,14 @@
                         @endif
 
                         <div class="tab-pane fade {{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tabpanel" aria-labelledby="{{ $options['real_name'] }}-{{ $lang }}-tab">
-                            @if ($element['field']['type'] == "textarea")
+                            @if ($element['field']['type'] == 'textarea')
                                 @if ($element['field']['ck_editor']) 
                                     @include('medKitTheme::forms.fields.ck_editor', ['field' => $element])
                                 @else
-                                    <{!!$element['field']['type']!!} name="{{ $element['field']['attributes']['name'] }}"  class="js-input-translatable {{ $element['field']['attributes']['class'] }}">{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
+                                    <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}>{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
                                 @endif
                             @else
-                                <{!!$element['field']['type']!!} type="{{ $element['field']['attributes']['type'] }}" value="{{ $element['field']['attributes']['value'] }}" name="{{ $element['field']['attributes']['name'] }}"  class="js-input-translatable {{ $element['field']['attributes']['class'] }}"/>
+                                <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}/>
                             @endif
                         </div>
 
@@ -83,28 +83,35 @@
  @endphp
     @push('scripts')
         <script>
-            jQuery(document).ready(function($) {
-                var inputsTranslatable = $(".js-input-translatable");
-                var tpl = '<i class="material-icons warning-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ _i("Attention ce champ est vide !") }}">warning</i>';
 
-                $(inputsTranslatable).each(function(i, translatable) {
-                    var the_val = $(translatable).val();
-                    if(the_val.length === 0) {
-                        // fuck off c'est vide...
-                        var the_btn = $('#'+ $(translatable).parent().attr('aria-labelledby') );
-                        console.log('the_btn', the_btn)
-                        var the_check_tooltip = the_btn.find('.warning-translatable');
-                        console.log('the_check_tooltip', the_check_tooltip)
-                        if(the_check_tooltip.length === 0) {
-                            the_btn.append(tpl);
-                        }
-                    }
-                })
-                $('.warning-translatable').tooltip();
+            function setTranslatableWarning(element) {
 
-                
+                var btn = $('#' + element.parent().attr('aria-labelledby'));
+                var tooltip = btn.find('.warning-translatable');
 
-            })
+                if (element.val()) {
+
+                    tooltip.tooltip('dispose').remove();
+                }
+                else if (!tooltip.length) {
+
+                    btn.append('<i class="material-icons warning-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ _i('Ce champ est vide') }}">warning</i>')
+                        .find('.warning-translatable').tooltip();
+                }
+            }
+
+            $(document).ready(function() {
+
+                $('.js-input-translatable').each(function() {
+
+                    setTranslatableWarning($(this));
+
+                }).on('input DOMSubtreeModified', function() {
+
+                    setTranslatableWarning($(this));
+                });
+            });
+
         </script>
     @endpush
 @endif

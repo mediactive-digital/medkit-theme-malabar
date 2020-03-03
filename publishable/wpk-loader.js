@@ -31,6 +31,7 @@ const default_folders = {
     js : 'js',
     css: 'css',
     sass: 'sass',
+    common: 'common',
     back: 'back',
     front: 'front',
     customJsPath : '',
@@ -62,8 +63,10 @@ const default_folders = {
             destPath: path.join(this.folders.cwd, this.folders.public),
             imagesPath: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.images),
             destImagesPath: path.join(this.folders.cwd, this.folders.public, this.folders.images),
+            jsPathCommon: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.js, this.folders.common),
             jsPathBack: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.js, this.folders.back),
             jsPathFront: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.js, this.folders.front),
+            sassPathCommon: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.sass, this.folders.common),
             sassPathBack: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.sass, this.folders.back),
             sassPathFront: path.join(this.folders.cwd, this.folders.resources, this.folders.assets, this.folders.sass, this.folders.front),
             customJsPath: path.join(this.folders.cwd, this.folders.customJsPath),
@@ -80,7 +83,7 @@ const default_folders = {
 
         switch (this.options.typeLoad) {
             case 'all':
-                allLinks = [this.paths.jsPathBack, this.paths.jsPathFront, this.paths.sassPathBack, this.paths.sassPathFront]
+                allLinks = [this.paths.jsPathCommon, this.paths.jsPathBack, this.paths.jsPathFront, this.paths.sassPathCommon, this.paths.sassPathBack, this.paths.sassPathFront]
                 break;
             case 'front':
                 allLinks = [this.paths.jsPathFront, this.paths.sassPathFront]
@@ -103,31 +106,29 @@ const default_folders = {
       }
       walker(dir, filelist, recursive) {
         var fs = fs || require('fs'),
-        files = fs.readdirSync(dir);
+        files = fs.existsSync(dir) ? fs.readdirSync(dir) : [],
         filelist = filelist || [];
         let that = this;
-        files = fs.readdirSync(dir);
-            filelist = filelist || [];
-            files.forEach(function(file) {
-                if(recursive != undefined && recursive) {
-                    if (fs.statSync(path.join(dir, file)).isDirectory()) {
-                        filelist = that.walker(path.join(dir, file), filelist, true);
-                    }
-                    else {
-                        filelist.push(path.join(dir, file));
-                    }
+        files.forEach(function(file) {
+            if(recursive != undefined && recursive) {
+                if (fs.statSync(path.join(dir, file)).isDirectory()) {
+                    filelist = that.walker(path.join(dir, file), filelist, true);
                 }
                 else {
-                    var full_path = path.join(dir, file);
-                    if(that.isFile(full_path) === true) {
-                        filelist.push(path.join(dir, file));
-                    }
-
+                    filelist.push(path.join(dir, file));
+                }
+            }
+            else {
+                var full_path = path.join(dir, file);
+                if(that.isFile(full_path) === true) {
+                    filelist.push(path.join(dir, file));
                 }
 
-            });
-            //  console.log('debug folder recursive', filelist)
-            return filelist;
+            }
+
+        });
+        //  console.log('debug folder recursive', filelist)
+        return filelist;
       }
       isFile(str) {
         let rt = false;
@@ -159,6 +160,9 @@ const default_folders = {
       }
       isFrontorBack(str) {
           let rt = false;
+          if(str.includes(this.folders.common) == true) {
+            rt = this.folders.common;
+          }
           if(str.includes(this.folders.back) == true ) {
             rt = this.folders.back;
           }
@@ -188,7 +192,7 @@ const default_folders = {
                       var tmpPath = require('path').dirname(key).replace(/\\/g, dirSeparator);
                       var keyInManifest = that.getExt(file) + '.' + tmpPath.substring(tmpPath.indexOf(dirSeparator, 2) + 1).replace(/\W/g, '.') + '.' + that.getNameFile(file);
 
-                      if(that.isFrontorBack(element) === that.folders.front || that.isFrontorBack(element) === that.folders.back) {
+                      if (that.isFrontorBack(element) === that.folders.common || that.isFrontorBack(element) === that.folders.back || that.isFrontorBack(element) === that.folders.front) {
                           jsonStr[keyInManifest] = { 'file' : key, 'hash': that.getTheHash(element) };
                       }
                       else {
