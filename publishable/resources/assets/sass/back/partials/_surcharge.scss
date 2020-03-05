@@ -668,6 +668,35 @@ div.card-img-top {
     background: transparent;
 }
 
+/* ---------------------------------------------------
+   Translatable
+----------------------------------------------------- */
+.js-btn-translatable {
+    height: 42px;
+}
+
+.js-btn-translatable svg,
+.select2-results__option svg {
+    width: 30px;
+    max-height: 20px;
+}
+
+.select2-results__option svg {
+    vertical-align: sub;
+    margin-right: 0.5rem;
+}
+
+.lang-translatable {
+    float: left;
+}
+
+/* ---------------------------------------------------
+   Select 2
+----------------------------------------------------- */
+.select2-container {
+    width: 100% !important;
+}
+
 /* FOOTER */
 .signature_mediactive {
     float: right;
