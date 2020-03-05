@@ -12,18 +12,28 @@
                     @foreach($options['value'] as $lang => $element)
                         {{-- {!! $tags['button'] !!} --}}
                         <li class="nav-item">
-                            @if ($loop->first)
-                                @php
+                            @php
+
+                                $flag = isset($element['button']['lang']) ? $element['button']['lang'] : '';
+                                $active = '';
+                                $aria = 'false';
+
+                                if ($loop->first) {
+
                                     $active = 'active';
                                     $aria = 'true';
-                                @endphp
-                            @else
-                                @php
-                                    $active = '';
-                                    $aria = 'false';
-                                @endphp
-                            @endif
-                        <{!!$element['button']['type']!!} class="nav-link js-btn-translatable  btn border text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">{{$element['button']['value']}}</{!!$element['button']['type']!!}>
+                                }
+
+                            @endphp
+                            <{!!$element['button']['type']!!} class="nav-link js-btn-translatable btn border text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
+                                @if ($flag)
+                                <span class="lang-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
+                                @endif
+                                    {!! $element['button']['value'] !!}
+                                @if ($flag)
+                                </span>
+                                @endif
+                            </{!!$element['button']['type']!!}>
                         </li>
                     @endforeach
                 
@@ -95,12 +105,14 @@
                 }
                 else if (!tooltip.length) {
 
-                    btn.append('<i class="material-icons warning-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ _i('Ce champ est vide') }}">warning</i>')
+                    btn.append('<i class="material-icons warning-translatable ml-3" data-toggle="tooltip" data-placement="bottom" title="{{ _i('Ce champ est vide') }}">warning</i>')
                         .find('.warning-translatable').tooltip();
                 }
             }
 
             $(document).ready(function() {
+
+                $('.lang-translatable').tooltip();
 
                 $('.js-input-translatable').each(function() {
 
