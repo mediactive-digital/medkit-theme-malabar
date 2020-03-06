@@ -25,9 +25,9 @@
                                 }
 
                             @endphp
-                            <{!!$element['button']['type']!!} class="nav-link js-btn-translatable btn border text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
+                            <{!!$element['button']['type']!!} class="nav-link btn-translatable d-flex border-light js-btn-translatable btn border shadow-none text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
                                 @if ($flag)
-                                <span class="lang-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
+                                <span class="lang-translatable d-flex justify-content-center align-items-center" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
                                 @endif
                                     {!! $element['button']['value'] !!}
                                 @if ($flag)
