@@ -20,14 +20,14 @@
 
                                 if ($loop->first) {
 
-                                    $active = 'active';
+                                    $active = ' active';
                                     $aria = 'true';
                                 }
 
                             @endphp
-                            <{!!$element['button']['type']!!} class="nav-link btn-translatable d-flex border-light js-btn-translatable btn border shadow-none text-uppercase {{ $active  }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
+                            <{!!$element['button']['type']!!} class="nav-link btn-translatable btn border-light d-flex{{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
                                 @if ($flag)
-                                <span class="lang-translatable d-flex justify-content-center align-items-center" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
+                                <span class="lang-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
                                 @endif
                                     {!! $element['button']['value'] !!}
                                 @if ($flag)
@@ -86,11 +86,14 @@
     </div>
 @endif
 
-@if (!isset($IS_ENABLED_TRANSLABLE_CHECKING))
- @php 
-    $IS_ENABLED_TRANSLABLE_CHECKING = true;
-    View::share ( 'IS_ENABLED_TRANSLABLE_CHECKING', $IS_ENABLED_TRANSLABLE_CHECKING );
- @endphp
+@if (!isset($IS_ENABLED_TRANSLATABLE))
+    @php 
+
+        $IS_ENABLED_TRANSLATABLE = true;
+        View::share ('IS_ENABLED_TRANSLATABLE', $IS_ENABLED_TRANSLATABLE);
+
+    @endphp
+
     @push('scripts')
         <script>
 
@@ -110,17 +113,114 @@
                 }
             }
 
+            function validateTranslatables(element, event) {
+
+                var form = element.closest('form');
+                var translatables = form.find('.js-translatable');
+
+                if (translatables.length && !form[0].checkValidity()) {
+
+                    event.preventDefault();
+
+                    var submit = true;
+                    var ckEditor = null;
+
+                    addTranslatablesRequired(translatables);
+
+                    translatables.each(function() {
+
+                        if ($(this).attr('data-required') == 'true' && !$(this).val()) {
+
+                            var parent = $(this).parent();
+
+                            if ($(this).hasClass('js-ck-editor')) {
+
+                                ckEditor = $(this);
+                            }
+                            else {
+
+                                removeTranslatablesRequired($(this));
+                            }
+                            
+                            if (!parent.hasClass('active')) {
+
+                                $('#' + parent.attr('aria-labelledby')).addClass('translatable-validation').trigger('click');
+
+                                submit = false;
+                            }
+
+                            return false;
+                        }
+                    });
+
+                    if (submit) {
+
+                        getTranslatableError(form, ckEditor);
+                    }
+                }
+            }
+
+            function getTranslatableError(form, ckEditor) {
+
+                ckEditor = typeof ckEditor !== 'undefined' ? ckEditor : null;
+
+                if (ckEditor) {
+
+                    ckEditorInstances.get(ckEditor[0]).editing.view.focus();
+
+                    $('html, body').animate({
+                        scrollTop: document.body.scrollTop + ckEditor.parent().find('.ck-editor__main').offset().top
+                    }, 0);
+                }
+                else {
+
+                    var tmp = $('<input type="submit" class="d-none" />');
+
+                    form.append(tmp);
+                    tmp.trigger('click').remove();
+                }
+
+                removeTranslatablesRequired(form.find('.js-translatable[data-required="true"]'));
+            }
+
+            function getHiddenTranslatableError(element) {
+
+                element.removeClass('translatable-validation');
+
+                getTranslatableError(element.closest('form'), (ckEditor = $(element.attr('href')).find('.js-ck-editor')) && ckEditor.length ? ckEditor : null);
+            }
+
+            function addTranslatablesRequired(elements) {
+
+                elements.filter('[required]').removeAttr('required').attr('data-required', true);
+            }
+
+            function removeTranslatablesRequired(elements) {
+
+                elements.removeAttr('data-required').attr('required', 'required');
+            }
+
             $(document).ready(function() {
 
                 $('.lang-translatable').tooltip();
 
-                $('.js-input-translatable').each(function() {
+                $('.js-translatable').each(function() {
 
                     setTranslatableWarning($(this));
 
                 }).on('input DOMSubtreeModified', function() {
 
                     setTranslatableWarning($(this));
+                });
+
+                $('form [type="submit"]').on('click', function(e) {
+
+                    validateTranslatables($(this), e);
+                });
+
+                $('body').on('shown.bs.tab', '.translatable-validation', function() {
+
+                    getHiddenTranslatableError($(this));
                 });
             });
 

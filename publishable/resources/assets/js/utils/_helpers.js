@@ -128,7 +128,7 @@
 
        if (the_item === null) {
 
-           console.log('item specified ' + item + ' has no key');
+           // console.log('item specified ' + item + ' has no key');
        }
        else {
 
