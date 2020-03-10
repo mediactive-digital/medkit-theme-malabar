@@ -48,14 +48,15 @@
 
             if (optsFromBack.basic === 'native') {
 
-                var elInput = $('input[type="file"][name="{{ $name }}"]');
-                var dropZone = $('input[type="file"][name="{{ $name }}"]').parent();
+                var elInput = $('#{{ $options['attr']['id'] }}');
+                var dropZone = elInput.parent();
 
                 function readURL(input) {
 
                     if (input.files && input.files[0]) {
 
                         var reader = new FileReader();
+                        var elInput = $(input);
                         
                         reader.onload = function(e) {
 
@@ -72,17 +73,17 @@
 
                 elInput.change(function() {
 
-                    var type = elInput.get(0).files[0].type;
+                    var type = $(this).get(0).files.length ? $(this).get(0).files[0].type : '';
 
                     if (type.indexOf('video') === -1) {
 
                         $(this).parent().removeClass('is-video-image');
-                        readURL(elInput.get(0));
+                        readURL($(this).get(0));
                     }
                     else {
 
-                        elInput.parent().css({'background-image': ''});
-                        elInput.parent().addClass('is-video-image');
+                        $(this).parent().css({'background-image': ''});
+                        $(this).parent().addClass('is-video-image');
                     }
                 });
 
@@ -105,6 +106,8 @@
                 dropZone.on('drop', function(e) {
 
                     var files = e.originalEvent.dataTransfer.files;
+                    var elInput = $(this).find('input[type="file"]');
+
                     elInput.get(0).files = files;
                     
                     if (files[0].type.indexOf('video') === -1) {
@@ -135,7 +138,7 @@
 
                 @endphp
                         
-                        var elementCibled = $('#{{ $dropzoneId }}');
+                        var elementCibled = $('#{{ $options['attr']['id'] }}');
 
                 @php
 
