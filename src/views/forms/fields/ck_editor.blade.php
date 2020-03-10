@@ -4,46 +4,51 @@
 
     $attributes = isset($element['field']['attributes']) ? $element['field']['attributes'] : $options['attr'];
     $value = isset($element['field']['value']) ? $element['field']['value'] : $options['value'];
+    $options = isset($element['field']['ckEditorOpts']) ? $element['field']['ckEditorOpts'] : $options['ckEditorOpts'];
+    $id = isset($element['field']['attributes']['id']) ? $element['field']['attributes']['id'] : $options['attr']['id'];
 
 @endphp
 
 {{-- // js-ck-editor classe a ajouter --}}
 <textarea {!! Format::renderHtmlAttributes($attributes) !!}>{{ $value }}</textarea>
                     
-@if (!isset($IS_ENABLED_CKEDITOR_TRANSLATABLE))
-    @php
+@push('scripts')
+    @if (!isset($IS_ENABLED_CK_EDITOR))
+        @php
 
-        $IS_ENABLED_CKEDITOR_TRANSLATABLE = true;
-        View::share ('IS_ENABLED_CKEDITOR_TRANSLATABLE', $IS_ENABLED_CKEDITOR_TRANSLATABLE);
-        $ckEditorOpts = isset($element['field']['ckEditorOpts']) ? $element['field']['ckEditorOpts'] : $options['ckEditorOpts'];
+            $IS_ENABLED_CK_EDITOR = true;
+            View::share('IS_ENABLED_CK_EDITOR', $IS_ENABLED_CK_EDITOR);
 
-    @endphp
-    @push('scripts')
+        @endphp
+
         {!! MDAsset::addJs('common.ckeditor') !!}
         <script>
 
-            $(document).ready(function() {
-
-                var elementsCKeditor = Array.prototype.slice.call(document.querySelectorAll('.js-ck-editor'));
-
-                for (var index_ck = 0; index_ck < elementsCKeditor.length; index_ck++) {
-
-                    var the_el = elementsCKeditor[index_ck];
-
-                    ClassicEditor.create(the_el, @json($ckEditorOpts))
-                        .then(editor => {
-
-                            editor.model.document.on('change', () => {
-
-                                editor.updateSourceElement();
-                            });
-                        })
-                        .catch(error => {
-
-                        });
-                }
-            });
+            const ckEditorInstances = new Map();
 
         </script>
-    @endpush
-@endif
+    @endif
+
+    <script>
+
+        $(document).ready(function() {
+
+            var ckEditor = document.getElementById('{{ $id }}');
+
+            ClassicEditor.create(ckEditor, @json($options))
+                .then(editor => {
+
+                    editor.model.document.on('change', () => {
+
+                        editor.updateSourceElement();
+                    });
+
+                    ckEditorInstances.set(ckEditor, editor);
+                })
+                .catch(error => {
+
+                });
+        });
+
+    </script>
+@endpush

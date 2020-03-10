@@ -7,20 +7,7 @@
     @endif
 
     @if ($showField)
-        @php
-
-            $array = '';
-
-            if (isset($options['select2Opts']['multiple']) && $options['select2Opts']['multiple']) {
-
-                $options['attr']['multiple'] = 'multiple';
-                $options['attr']['id'] = $name;
-                $array = '[]';
-            }
-
-        @endphp
-
-        {!! Form::select($name . $array, $options['choices'], $options['value'], $options['attr']) !!}
+        {!! Form::select($name . (isset($options['select2Opts']['multiple']) && $options['select2Opts']['multiple'] ? '[]' : ''), $options['choices'], $options['value'], $options['attr']) !!}
 
         @if ($options['help_block']['text'] && !$options['is_child'])
             <{!! $options['help_block']['tag'] !!} {!! $options['help_block']['helpBlockAttrs'] !!}>
@@ -56,6 +43,7 @@
 
                     var elementText = $(this).text();
                     var tmp = document.createElement('div');
+
                     tmp.innerHTML = elementText;
                     $(this).text(tmp.lastChild.textContent || tmp.lastChild.innerText || '');
                     tmp.remove();
@@ -87,12 +75,13 @@
 
         $(document).ready(function() {
 
-            var element = $('#{{ $name }}');
+            var element = $('#{{ $options['attr']['id'] }}');
             var options = @json($options['select2Opts']);  
 
             @if (isset($options['customRenderSelect2']) && $options['customRenderSelect2'])
 
                 setSelect2Data(element, @json($options['customRenderSelect2']));
+                
                 options.templateResult = getSelect2TemplateResult;
 
             @endif
