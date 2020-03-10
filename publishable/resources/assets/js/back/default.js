@@ -29,6 +29,10 @@ require('sprintf-js');
 //sweetAlert
 import Swal from 'sweetalert2';
 
+import tempusdominus from 'tempusdominus-bootstrap-4';
+
+jQuery.prototype.datetimepicker = $.prototype.datetimepicker = tempusdominus;
+
 // Support promise
 // import 'promise-polyfill/src/polyfill';
 

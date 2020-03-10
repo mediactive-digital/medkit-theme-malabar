@@ -40,7 +40,12 @@
         "scrollreveal": "^4.0.5",
         "select2": "^4.0.13",
         "sprintf-js": "^1.1.2",
+        "sweetalert2": "^9.8.2",
+        "select2": "^4.0.12",
+        "@ckeditor/ckeditor5-build-classic": "^16.0.0",
+        "ckeditor5": "^16.0.0",
         "svg-country-flags": "^1.2.7",
-        "sweetalert2": "^9.8.2"
+        "tempusdominus-bootstrap-4": "^5.1.2",
+        "moment": "^2.24.0"
     }
 }
