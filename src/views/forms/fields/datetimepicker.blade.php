@@ -37,7 +37,19 @@
     <script>
         jQuery(document).ready(function() {
             // $('input[type="date"][name="{{$name}}"]').datetimepicker();
-            $('#datetimepicker-{{ Str::slug($name, '-') }}').datetimepicker();
+            $('#datetimepicker-{{ Str::slug($name, '-') }}').datetimepicker({
+                icons: {
+                    time: 'material-icons time',
+                    date: 'material-icons date',
+                    up: 'material-icons up',
+                    down: 'material-icons down',
+                    previous: 'material-icons previous',
+                    next: 'material-icons next',
+                    today: 'material-icons today',
+                    clear: 'material-icons clear',
+                    close: 'material-icons close'
+                }
+            });
         })
     </script>
 @endpush

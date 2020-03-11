@@ -10,6 +10,36 @@ button#sidebar-leftCollapse::before {
 nav a {
     color: theme-color("dark");
 }
+// for the datetimecker
+.material-icons {
+    &.time::before {
+      content: 'access_time';
+    }
+    &.date::before {
+      content: 'calendar_today';
+    }
+    &.up::before {
+      content: 'arrow_drop_up';
+    }
+    &.down::before {
+      content: 'arrow_drop_down';
+    }
+    &.previous::before {
+      content: 'chevron_left';
+    }
+    &.next::before {
+      content: 'chevron_right';
+    }
+    &.today::before {
+      content: 'today';
+    }
+    &.clear::before {
+      content: 'clear';
+    }
+    &.close::before {
+      content: 'close';
+    }
+}
 // FORM
 .form-group::after,
 .form-group::before {
