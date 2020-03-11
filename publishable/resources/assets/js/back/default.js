@@ -48,6 +48,12 @@ require('select2');
 window.Dropzone = require('dropzone');
 Dropzone.autoDiscover = false;
 
+import * as moment from 'moment';
+
+// console.log('moment', moment);
+window.moment = moment;
+require('tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js')
+
 
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"
