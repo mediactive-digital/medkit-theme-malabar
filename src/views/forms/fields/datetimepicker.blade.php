@@ -37,7 +37,12 @@
     <script>
         jQuery(document).ready(function() {
             // $('input[type="date"][name="{{$name}}"]').datetimepicker();
+
+            var locale = '{!! App::getLocale() !!}';
+
             $('#datetimepicker-{{ Str::slug($name, '-') }}').datetimepicker({
+                locale: moment.locale(locale),
+                format: '{!! _i("YYYY-MM-DD HH:mm") !!}',
                 icons: {
                     time: 'material-icons time',
                     date: 'material-icons date',
