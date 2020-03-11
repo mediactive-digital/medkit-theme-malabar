@@ -12,7 +12,7 @@
             {!! Form::input('text', $name, $options['value'], $options['attr']) !!} 
             {{-- {!! Form::text($name, $options['value'] != null ?  $options['value'] : null, ['class' => 'form-control datetimepicker-input', 'data-target' => '#datetimepicker-{{ Str::slug($name, '-') }}']) !!} --}}
             <div class="input-group-append" data-target="#datetimepicker-{{ Str::slug($name, '-') }}" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="material-icons">movie_creation</i></div>
+                <div class="input-group-text"><i class="material-icons">date_range</i></div>
             </div>
         </div>
 
@@ -37,7 +37,19 @@
     <script>
         jQuery(document).ready(function() {
             // $('input[type="date"][name="{{$name}}"]').datetimepicker();
-            $('#datetimepicker-{{ Str::slug($name, '-') }}').datetimepicker();
+            $('#datetimepicker-{{ Str::slug($name, '-') }}').datetimepicker({
+                icons: {
+                    time: 'material-icons time',
+                    date: 'material-icons date',
+                    up: 'material-icons up',
+                    down: 'material-icons down',
+                    previous: 'material-icons previous',
+                    next: 'material-icons next',
+                    today: 'material-icons today',
+                    clear: 'material-icons clear',
+                    close: 'material-icons close'
+                }
+            });
         })
     </script>
 @endpush

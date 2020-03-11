@@ -10,6 +10,42 @@ button#sidebar-leftCollapse::before {
 nav a {
     color: theme-color("dark");
 }
+
+.bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
+    background-color: theme-color('primary')!important;
+    color: $white!important;
+}
+
+// for the datetimecker
+.material-icons {
+    &.time::before {
+      content: 'access_time';
+    }
+    &.date::before {
+      content: 'date_range';
+    }
+    &.up::before {
+      content: 'arrow_drop_up';
+    }
+    &.down::before {
+      content: 'arrow_drop_down';
+    }
+    &.previous::before {
+      content: 'chevron_left';
+    }
+    &.next::before {
+      content: 'chevron_right';
+    }
+    &.today::before {
+      content: 'today';
+    }
+    &.clear::before {
+      content: 'clear';
+    }
+    &.close::before {
+      content: 'close';
+    }
+  }
 // FORM
 .form-group::after,
 .form-group::before {
