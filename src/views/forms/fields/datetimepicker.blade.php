@@ -8,7 +8,13 @@
 
     @if ($showField)
 
-        {!! Form::date($name) !!}
+        <div class="input-group date" id="datetimepicker-{{ Str::slug($name, '-') }}" data-target-input="nearest">
+            {!! Form::input('text', $name, $options['value'], $options['attr']) !!} 
+            {{-- {!! Form::text($name, $options['value'] != null ?  $options['value'] : null, ['class' => 'form-control datetimepicker-input', 'data-target' => '#datetimepicker-{{ Str::slug($name, '-') }}']) !!} --}}
+            <div class="input-group-append" data-target="#datetimepicker-{{ Str::slug($name, '-') }}" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="material-icons">movie_creation</i></div>
+            </div>
+        </div>
 
         @if ($options['help_block']['text'] && !$options['is_child'])
             <{!! $options['help_block']['tag'] !!} {!! $options['help_block']['helpBlockAttrs'] !!}>
@@ -30,7 +36,8 @@
 @push('scripts')
     <script>
         jQuery(document).ready(function() {
-            $('input[type="date"][name="{{$name}}"]').datetimepicker();
+            // $('input[type="date"][name="{{$name}}"]').datetimepicker();
+            $('#datetimepicker-{{ Str::slug($name, '-') }}').datetimepicker();
         })
     </script>
 @endpush
