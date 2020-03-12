@@ -57,7 +57,7 @@
                         <div class="tab-pane fade {{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tabpanel" aria-labelledby="{{ $options['real_name'] }}-{{ $lang }}-tab">
                             @if ($element['field']['type'] == 'textarea')
                                 @if ($element['field']['ck_editor']) 
-                                    @include('medKitTheme::forms.fields.ck_editor', ['field' => $element])
+                                    @include('medKitTheme::forms.fields.ck_editor')
                                 @else
                                     <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}>{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
                                 @endif

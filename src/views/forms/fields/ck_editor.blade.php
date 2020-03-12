@@ -1,11 +1,11 @@
 {{-- https://www.npmjs.com/package/ckeditor5 --}}
 
-@php 
+@php
 
-    $isTranslatable = isset($element['field']['attributes']);
+    $isTranslatable = isset($element);
     $attributes = $isTranslatable ? $element['field']['attributes'] : $options['attr'];
     $value = $isTranslatable ? $element['field']['value'] : $options['value'];
-    $options = $isTranslatable ? $element['field']['ckEditorOpts'] : $options['ckEditorOpts'];
+    $ckEditorOptions = $isTranslatable ? $element['field']['ckEditorOpts'] : $options['ckEditorOpts'];
     $id = $isTranslatable ? $element['field']['attributes']['id'] : $options['attr']['id'];
 
 @endphp
@@ -60,7 +60,7 @@
 
             var ckEditor = document.getElementById('{{ $id }}');
 
-            ClassicEditor.create(ckEditor, @json($options))
+            ClassicEditor.create(ckEditor, @json($ckEditorOptions))
                 .then(editor => {
 
                     editor.model.document.on('change', () => {
