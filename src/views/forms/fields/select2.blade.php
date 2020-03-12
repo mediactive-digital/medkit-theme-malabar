@@ -7,7 +7,7 @@
     @endif
 
     @if ($showField)
-        {!! Form::select($name . (isset($options['select2Opts']['multiple']) && $options['select2Opts']['multiple'] ? '[]' : ''), $options['choices'], $options['value'], $options['attr']) !!}
+        {!! Form::select($name, $options['choices'], $options['selected'], $options['attr']) !!}
 
         @if ($options['help_block']['text'] && !$options['is_child'])
             <{!! $options['help_block']['tag'] !!} {!! $options['help_block']['helpBlockAttrs'] !!}>
@@ -87,12 +87,6 @@
             @endif
 
             element.select2(options);
-
-            @if (isset($options['selected']))
-
-                element.val([{!! implode(',', $options['selected']) !!}]).change();
-
-            @endif
         });
 
     </script>
