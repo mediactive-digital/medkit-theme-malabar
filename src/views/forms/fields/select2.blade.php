@@ -1,4 +1,4 @@
-@if ($showLabel && $showField && $options['wrapper'])
+@if ($showField && $options['wrapper'])
     <div {!! $options['wrapperAttrs'] !!}>
 @endif
 
@@ -22,7 +22,7 @@
         @endforeach
     @endif
 
-@if ($showLabel && $showField && $options['wrapper'])
+@if ($showField && $options['wrapper'])
     </div>
 @endif
 
