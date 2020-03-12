@@ -2,15 +2,40 @@
 
 @php 
 
-    $attributes = isset($element['field']['attributes']) ? $element['field']['attributes'] : $options['attr'];
-    $value = isset($element['field']['value']) ? $element['field']['value'] : $options['value'];
-    $options = isset($element['field']['ckEditorOpts']) ? $element['field']['ckEditorOpts'] : $options['ckEditorOpts'];
-    $id = isset($element['field']['attributes']['id']) ? $element['field']['attributes']['id'] : $options['attr']['id'];
+    $isTranslatable = isset($element['field']['attributes']);
+    $attributes = $isTranslatable ? $element['field']['attributes'] : $options['attr'];
+    $value = $isTranslatable ? $element['field']['value'] : $options['value'];
+    $options = $isTranslatable ? $element['field']['ckEditorOpts'] : $options['ckEditorOpts'];
+    $id = $isTranslatable ? $element['field']['attributes']['id'] : $options['attr']['id'];
 
 @endphp
 
-{{-- // js-ck-editor classe a ajouter --}}
-<textarea {!! Format::renderHtmlAttributes($attributes) !!}>{{ $value }}</textarea>
+@if (!$isTranslatable)
+    @if ($showField && $options['wrapper'])
+        <div {!! $options['wrapperAttrs'] !!}>
+    @endif
+
+        @if ($showLabel && $options['label'] && $options['label_show'])
+            {!! Form::customLabel($name, $options['label'], $options['label_attr']) !!}
+        @endif
+@endif
+
+        @if ($showField)
+            {{-- // js-ck-editor classe a ajouter --}}
+            <textarea {!! Format::renderHtmlAttributes($attributes) !!}>{{ $value }}</textarea>
+        @endif
+
+@if (!$isTranslatable)
+        @if ($showError && isset($errors) && $errors->hasBag($errorBag))
+            @foreach($errors->getBag($errorBag)->get($nameKey) as $err)
+                <div {!! $options['errorAttrs'] !!}>{!! $err !!}</div>
+            @endforeach
+        @endif
+
+    @if ($showField && $options['wrapper'])
+        </div>
+    @endif
+@endif
                     
 @push('scripts')
     @if (!isset($IS_ENABLED_CK_EDITOR))
