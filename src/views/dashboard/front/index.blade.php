@@ -1,4 +1,4 @@
-@extends('medKitTheme::front._layouts.app')
+@extends('medKitTheme::_layouts.front.app')
 
 @section('content')
 
