@@ -16,6 +16,84 @@ nav a {
     color: $white!important;
 }
 
+.zone-input-file {
+    &.is-video-image {
+        > * {
+            color: $white;
+        }
+    }
+    &.is-video-image {
+        background-image: url('/images/clapboard.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100px;
+        .text-drop-file, .text-uploaded-file, .drop-content-file {
+            background-color: rgba(112, 108, 97, 0.45); 
+        }
+    }
+    &.has-error {
+        border-color: theme-color('danger');
+        background-color: transparentize(theme-color('danger'), .75);
+    }
+    background-color: theme-color("light");
+    display: block;
+    // width: 150px;
+    // height: 150px;
+    border-radius: 6px;
+    position:relative;
+    border: 1px dashed #bbbbba;
+    overflow: hidden;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    @include clearfix();
+    .text-drop-file, .text-uploaded-file, .drop-content-file {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        cursor: pointer;
+        transition: .2s all ease;
+        font-family: $headings-font-family;
+        font-size: 30px;
+        // background-color: rgba(112, 108, 97, 0.45);
+    }
+    &:hover .text-drop-file {
+        background-color: #676767;
+        color: $white;
+    }
+    .text-uploaded-file, .drop-content-file {
+        opacity: 0;
+    }
+    input {
+        opacity: 0;
+    }
+    &.is-dragover {
+        .drop-content-file {
+                opacity: 1;
+                background-color: #676767;
+                color: white;
+        } 
+    }
+    &.have-uploaded-file {
+        .text-drop-file {
+            opacity: 0;
+        }
+        &:hover {
+            .text-uploaded-file {
+                opacity: 1;
+                background-color: #676767;
+                color: white;
+            }
+        }
+        
+    }
+}
+
 // for the datetimecker
 .material-icons {
     &.time::before {
