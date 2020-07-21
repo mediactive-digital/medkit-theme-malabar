@@ -46,6 +46,8 @@
         "ckeditor5": "^16.0.0",
         "svg-country-flags": "^1.2.7",
         "tempusdominus-bootstrap-4": "^5.1.2",
-        "moment": "^2.24.0"
+        "moment": "^2.24.0",
+        "laravel-echo": "^1.8.0",
+        "laravel-echo-server": "^1.6.2"
     }
 }
