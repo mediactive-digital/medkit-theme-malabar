@@ -40,19 +40,42 @@
                 $.extend(true, $.fn.dataTable.defaults, {
                     infoCallback: function(settings, start, end, max, total) {
 
-                        var info = settings.oLanguage.sInfo || '';
+                        /* Show information about the table */
+                        var nodes = settings.aanFeatures.i;
 
-                        if (info) {
+                        if (nodes.length === 0) {
 
-                            start = start > end ? end : start;
-
-                            info = info.replace(/_START_/g, _this.numberFormat(start))
-                                .replace(/_END_/g, _this.numberFormat(end))
-                                .replace(/_MAX_/g,  _this.numberFormat(max))
-                                .replace(/_TOTAL_/g, _this.numberFormat(total));
+                            return;
                         }
 
-                        return info;
+                        start = start > end ? end : start;
+                
+                        var lang = settings.oLanguage;
+                        var out = total ? lang.sInfo : lang.sInfoEmpty;
+                
+                        if (total !== max) {
+
+                            /* Record set after filtering */
+                            out += ' ' + lang.sInfoFiltered;
+                        }
+                
+                        // Convert the macros
+                        out += lang.sInfoPostFix;
+
+                        // When infinite scrolling, we are always starting at 1. _iDisplayStart is used only internally
+                        var formatter = settings.fnFormatNumber;
+                        var len = settings._iDisplayLength;
+                        var vis = settings.fnRecordsDisplay();
+                        var all = len === -1;
+
+                        out = out.replace(/_START_/g, _this.numberFormat(start))
+                            .replace(/_END_/g, _this.numberFormat(end))
+                            .replace(/_MAX_/g, _this.numberFormat(max))
+                            .replace(/_TOTAL_/g, _this.numberFormat(total))
+                            .replace(/_PAGE_/g,  formatter.call(settings, all ? 1 : Math.ceil(start / len)))
+                            .replace(/_PAGES_/g, formatter.call(settings, all ? 1 : Math.ceil(vis / len)));
+
+                        return out;
                     }
                 });
             }
