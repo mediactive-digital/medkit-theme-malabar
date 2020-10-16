@@ -102,7 +102,7 @@
                 var btn = $('#' + element.parent().attr('aria-labelledby'));
                 var tooltip = btn.find('.warning-translatable');
 
-                if (element.val()) {
+                if (element.val() || element.attr('data-val')) {
 
                     tooltip.tooltip('dispose').remove();
                 }
