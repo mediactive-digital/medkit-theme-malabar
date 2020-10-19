@@ -7,7 +7,7 @@
     @endif
 
     @if ($showField)
-        {!! Form::select($name, $options['choices'], $options['selected'], $options['attr']) !!}
+        {!! Form::select($name, $options['choices'], $options['selected'], $options['attr'], $options['options_attr'], $options['opt_groups_attr']) !!}
 
         @if ($options['help_block']['text'] && !$options['is_child'])
             <{!! $options['help_block']['tag'] !!} {!! $options['help_block']['helpBlockAttrs'] !!}>
