@@ -92,16 +92,16 @@
     </div>
 
     @include('medKitTheme::_layouts.back.partials.footer')
+	@if ($jsTranslations = Format::getJsTranslations())
 
-	@php
-	   // Translations
-	   $locale = LaravelGettext::getLocale();
-	@endphp
     <!-- Translations -->
-	<script type="text/javascript" src="{{ asset('js/translations/' . $locale . '.js') }}" ></script>
-    
+    <script src="{{ $jsTranslations }}" type="text/javascript"></script>
+    @endif
+    @if ($jsRoutes = Format::getJsRoutes())
+
     <!-- Routes -->
-	<script type="text/javascript" src="{{ asset('js/routes.js') }}" ></script>
+    <script src="{{ $jsRoutes }}" type="text/javascript"></script>
+    @endif
    
     <!-- General Theme script -->
     {!! MDAsset::addJs('back.default') !!}
