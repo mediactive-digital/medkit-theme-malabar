@@ -75,7 +75,7 @@
 
         $(document).ready(function() {
 
-            var element = $('#{{ $options['attr']['id'] }}');
+            var element = $('#{{ quotemeta(quotemeta($options['attr']['id'])) }}');
             var options = @json($options['select2Opts']);  
 
             @if (isset($options['customRenderSelect2']) && $options['customRenderSelect2'])
