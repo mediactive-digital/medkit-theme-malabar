@@ -3,7 +3,7 @@ window.$ = window.jQuery = require('jquery');
 
 /* bootstrap */
 require('popper.js');
-require('bootstrap');
+require('bootstrap/dist/js/bootstrap.bundle.min.js');
 
 // for supporting Object.keys not compatible in IE
 require('@babel/polyfill');
@@ -28,21 +28,20 @@ require('sprintf-js');
 
 //sweetAlert
 import Swal from 'sweetalert2';
-
-import tempusdominus from 'tempusdominus-bootstrap-4';
-
-jQuery.prototype.datetimepicker = $.prototype.datetimepicker = tempusdominus;
+window.Swal = Swal;
 
 // Support promise
 // import 'promise-polyfill/src/polyfill';
 
 /* DATATABLES */
-var DataTable = require('datatables.net');
+import DataTable from 'datatables.net';
+window.DataTable = DataTable;
+
 $ = jQuery = DataTable.$;
 
 require('datatables.net-src/js/integration/dataTables.bootstrap4');
 
-require('datatables.net-buttons')(window, $);
+import 'datatables.net-buttons';
 
 require('select2');
 window.Dropzone = require('dropzone');
@@ -52,8 +51,8 @@ import * as moment from 'moment';
 
 // console.log('moment', moment);
 window.moment = moment;
-require('tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js')
 
+require('tempusdominus-bootstrap-4');
 
 // window.lazyLoadInstance = new LazyLoad({
 //     elements_selector: "img"

@@ -3,8 +3,8 @@ let fs = require('fs');
 
 let mix = require('laravel-mix');
 require('laravel-mix-purgecss');
-const imagemin = require('imagemin');
-const imageminWebp = require('imagemin-webp');
+const imagemin = import('imagemin');
+const imageminWebp = import('imagemin-webp');
 const jsonfile = require('jsonfile');
 
 const default_mix_options = {
