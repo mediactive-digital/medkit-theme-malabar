@@ -1,3 +1,8 @@
+@php
+
+$id = Str::of(Str::replace(['[', ']'], ['-', ''], $options['real_name']))->ltrim('-');
+
+@endphp
 @if ($showField && $options['wrapper'])
     <div {!! $options['wrapperAttrs'] !!}>
 @endif
@@ -6,70 +11,69 @@
         {!! Form::customLabel($name, $options['label'], $options['label_attr']) !!}
     @endif
     
-    <ul class="nav nav-pills mb-4" id="myTab_{{ $options['real_name'] }}" role="tablist">
+    @if ($showField)
+    <ul class="nav nav-pills mb-4" id="nav-{{ $id }}" role="tablist">
         @if ($showField && $options['value'])
             
-                    @foreach($options['value'] as $lang => $element)
-                        {{-- {!! $tags['button'] !!} --}}
-                        <li class="nav-item">
-                            @php
+            @foreach($options['value'] as $lang => $element)
+                {{-- {!! $tags['button'] !!} --}}
+                <li class="nav-item">
+                    @php
 
-                                $flag = isset($element['button']['lang']) ? $element['button']['lang'] : '';
-                                $active = '';
-                                $aria = 'false';
+                        $flag = isset($element['button']['lang']) ? $element['button']['lang'] : '';
+                        $active = '';
+                        $aria = 'false';
 
-                                if ($loop->first) {
+                        if ($loop->first) {
 
-                                    $active = ' active';
-                                    $aria = 'true';
-                                }
+                            $active = ' active';
+                            $aria = 'true';
+                        }
 
-                            @endphp
-                            <{!!$element['button']['type']!!} class="nav-link btn-translatable btn border-light d-flex{{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $options['real_name'] }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
-                                @if ($flag)
-                                <span class="lang-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
-                                @endif
-                                    {!! $element['button']['value'] !!}
-                                @if ($flag)
-                                </span>
-                                @endif
-                            </{!!$element['button']['type']!!}>
-                        </li>
-                    @endforeach
-                
-            
-        @endif
-        </ul>
-        <div class="tab-content">
-            @if ($showField && $options['value'])
-                    @foreach($options['value'] as $lang => $element)
-                        {{-- {!! $tags['field'] !!} --}}
-                        @if ($loop->first)
-                            @php
-                                $active = 'active show';
-                            @endphp
-                        @else
-                            @php
-                                $active = '';
-                            @endphp
+                    @endphp
+                    <{!!$element['button']['type']!!} class="nav-link btn-translatable btn border-light d-flex{{ $active }}" id="{{ $id }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $id }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $id }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
+                        @if ($flag)
+                        <span class="lang-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
                         @endif
+                            {!! $element['button']['value'] !!}
+                        @if ($flag)
+                        </span>
+                        @endif
+                    </{!!$element['button']['type']!!}>
+                </li>
+            @endforeach
+                
+        @endif
+    </ul>
+    <div class="tab-content">
+        @if ($showField && $options['value'])
+            @foreach($options['value'] as $lang => $element)
+                {{-- {!! $tags['field'] !!} --}}
+                @if ($loop->first)
+                    @php
+                        $active = 'active show';
+                    @endphp
+                @else
+                    @php
+                        $active = '';
+                    @endphp
+                @endif
 
-                        <div class="tab-pane fade {{ $active }}" id="{{ $options['real_name'] }}-{{ $lang }}-tabpane" role="tabpanel" aria-labelledby="{{ $options['real_name'] }}-{{ $lang }}-tab">
-                            @if ($element['field']['type'] == 'textarea')
-                                @if ($element['field']['ck_editor']) 
-                                    @include('medKitTheme::forms.fields.ck_editor')
-                                @else
-                                    <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}>{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
-                                @endif
-                            @else
-                                <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}/>
-                            @endif
-                        </div>
-
-                    @endforeach
-            @endif
-        </div>
-
+                <div class="tab-pane fade {{ $active }}" id="{{ $id }}-{{ $lang }}-tabpane" role="tabpanel" aria-labelledby="{{ $id }}-{{ $lang }}-tab">
+                    @if ($element['field']['type'] == 'textarea')
+                        @if ($element['field']['ck_editor']) 
+                            @include('medKitTheme::forms.fields.ck_editor')
+                        @else
+                            <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}>{{ $element['field']['value'] }}</{!!$element['field']['type']!!}>
+                        @endif
+                    @else
+                        <{!!$element['field']['type']!!} {!! Format::renderHtmlAttributes($element['field']['attributes']) !!}/>
+                    @endif
+                </div>
+            @endforeach
+        @endif
+    </div>
+    @endif
 
     @if($showError && isset($errors) && $errors->hasBag($errorBag))
         @foreach($errors->getBag($errorBag)->getMessages() as $key => $errs)
@@ -79,8 +83,7 @@
                 @endforeach
             @endif
         @endforeach
-    @endif
-    
+    @endif  
 
 @if ($showField && $options['wrapper'])
     </div>
