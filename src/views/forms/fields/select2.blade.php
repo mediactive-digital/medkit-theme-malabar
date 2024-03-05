@@ -16,9 +16,26 @@
         @endif
     @endif
 
-    @if($showError && isset($errors) && $errors->hasBag($errorBag))
-        @foreach($errors->getBag($errorBag)->get($nameKey) as $err)
-            <div {!! $options['errorAttrs'] !!}>{!! $err !!}</div>
+    @php
+
+        $errsList = [];
+
+    @endphp
+
+    @if ($showError && isset($errors) && $errors->hasBag($errorBag))
+        @foreach ($errors->getBag($errorBag)->getMessages() as $key => $errs)
+            @if ($key == $nameKey || Str::startsWith($key, $nameKey . '.'))
+                @foreach($errs as $err)
+                    @if (!in_array($err, $errsList))
+                        @php
+
+                            $errsList[] = $err;
+
+                        @endphp
+                        <div {!! $options['errorAttrs'] !!}>{{ $err }}</div>
+                    @endif
+                @endforeach
+            @endif
         @endforeach
     @endif
 
