@@ -101,6 +101,41 @@
         });
     };
 
+    // Tooltip
+    Helpers.prototype.tooltipSetup = () => {
+
+        $(document).ready(() => {
+
+            let wrapper = document.body.getElementsByClassName('wrapper')[0];
+
+            let tooltipConfig = {
+                trigger: 'hover',
+                container: wrapper,
+                boundary: wrapper,
+                selector: '[data-bs-toggle="tooltip"]'
+            };
+
+            const tooltip = new bootstrap.Tooltip(document.body, tooltipConfig);
+
+            $('body').on('preDraw.dt', 'table.dataTable', (event) => {
+
+                let tooltips = $(event.currentTarget).find('[data-bs-toggle="tooltip"]');
+
+                tooltips.each((index, element) => {
+
+                    let instance = bootstrap.Tooltip.getInstance(element);
+
+                    if (instance) {
+
+                        instance.dispose();
+                    }
+                });
+
+                tooltips.remove();
+            });
+        });
+    };
+
     // Disable elements
     Helpers.prototype.disableElements = function(elements, loader) {
 
