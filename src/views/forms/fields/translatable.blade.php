@@ -16,7 +16,6 @@ $id = Str::of(Str::replace(['[', ']'], ['-', ''], $options['real_name']))->ltrim
         @if ($showField && $options['value'])
             
             @foreach($options['value'] as $lang => $element)
-                {{-- {!! $tags['button'] !!} --}}
                 <li class="nav-item">
                     @php
 
@@ -31,9 +30,9 @@ $id = Str::of(Str::replace(['[', ']'], ['-', ''], $options['real_name']))->ltrim
                         }
 
                     @endphp
-                    <{!!$element['button']['type']!!} class="nav-link btn-translatable btn border-light d-flex{{ $active }}" id="{{ $id }}-{{ $lang }}-tab" data-toggle="tab" href="#{{ $id }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $id }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
+                    <{!!$element['button']['type']!!} type="{{ $element['button']['type'] }}" class="nav-link btn-translatable btn border-light d-flex{{ $active }}" id="{{ $id }}-{{ $lang }}-tab" data-bs-toggle="tab" href="#{{ $id }}-{{ $lang }}-tabpane" role="tab" aria-controls="{{ $id }}-{{ $lang }}-tabpane" aria-selected="{{ $aria }}">
                         @if ($flag)
-                        <span class="lang-translatable" data-toggle="tooltip" data-placement="bottom" title="{{ $flag }}">
+                        <span class="lang-translatable" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ $flag }}">
                         @endif
                             {!! $element['button']['value'] !!}
                         @if ($flag)
@@ -48,7 +47,11 @@ $id = Str::of(Str::replace(['[', ']'], ['-', ''], $options['real_name']))->ltrim
     <div class="tab-content">
         @if ($showField && $options['value'])
             @foreach($options['value'] as $lang => $element)
-                {{-- {!! $tags['field'] !!} --}}
+                @php
+
+                $element['field']['attributes']['value'] = Form::getValueAttribute($element['field']['attributes']['name'], $element['field']['attributes']['value']);
+
+                @endphp
                 @if ($loop->first)
                     @php
                         $active = 'active show';
@@ -107,12 +110,18 @@ $id = Str::of(Str::replace(['[', ']'], ['-', ''], $options['real_name']))->ltrim
 
                 if (element.val() || element.attr('data-val')) {
 
-                    tooltip.tooltip('dispose').remove();
+                    let instance = bootstrap.Tooltip.getInstance(tooltip[0]);
+
+                    if (instance) {
+
+                        instance.dispose();
+                    }
+
+                    tooltip.remove();
                 }
                 else if (!tooltip.length) {
 
-                    btn.append('<i class="material-icons warning-translatable ml-3" data-toggle="tooltip" data-placement="bottom" title="{{ _i('Ce champ est vide') }}">warning</i>')
-                        .find('.warning-translatable').tooltip();
+                    btn.append('<i class="material-icons warning-translatable ms-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ _i('Ce champ est vide') }}">warning</i>');
                 }
             }
 
@@ -205,13 +214,20 @@ $id = Str::of(Str::replace(['[', ']'], ['-', ''], $options['real_name']))->ltrim
 
             $(document).ready(function() {
 
-                $('.lang-translatable').tooltip();
-
                 $('.js-translatable').each(function() {
 
                     setTranslatableWarning($(this));
 
-                }).on('input DOMSubtreeModified', function() {
+                    new MutationObserver(() => {
+
+                            setTranslatableWarning($(this));
+                        })
+                        .observe(this, {
+                            childList: true,
+                            subtree: true
+                        });
+
+                }).on('input', function() {
 
                     setTranslatableWarning($(this));
                 });
